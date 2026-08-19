@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.view.WindowManager
 import androidx.core.view.WindowCompat
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
