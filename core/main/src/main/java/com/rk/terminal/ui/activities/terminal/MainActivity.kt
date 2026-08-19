@@ -1,16 +1,14 @@
 package com.rk.terminal.ui.activities.terminal
-import androidx.core.view.WindowCompat
-import android.view.WindowManager
 
 import android.content.pm.PackageManager
 import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.material3.Surface
@@ -18,6 +16,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.rk.terminal.ui.navHosts.MainActivityNavHost
@@ -41,18 +42,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Immersive fullscreen
-        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        // 1. Configure the window for immersive edge-to-edge content
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        window.decorView.systemUiVisibility = (
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-            View.SYSTEM_UI_FLAG_FULLSCREEN or
-            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        )
+        
+        // 2. Hide both the navigation and status bars cleanly
+        hideSystemBars()
 
         requestPermission()
 
@@ -106,11 +100,24 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
+        // 3. Ensure bars remain hidden when re-focusing or returning to the terminal
+        hideSystemBars()
+
         if (wasKeyboardOpen && !isKeyboardVisible) {
             terminalViewModel.terminalView?.let { terminalView ->
                 val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.showSoftInput(terminalView, InputMethodManager.SHOW_IMPLICIT)
             }
+        }
+    }
+
+    // Helper method handling the modern full-screen logic
+    private fun hideSystemBars() {
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            // Re-hides the bars automatically after a user swipes them into view
+            systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            // Hides both the status bar and navigation bar
+            hide(WindowInsetsCompat.Type.systemBars())
         }
     }
 
