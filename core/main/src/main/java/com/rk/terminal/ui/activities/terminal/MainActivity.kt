@@ -1,4 +1,6 @@
 package com.rk.terminal.ui.activities.terminal
+import androidx.core.view.WindowCompat
+import android.view.WindowManager
 
 import android.content.pm.PackageManager
 import android.graphics.Rect
