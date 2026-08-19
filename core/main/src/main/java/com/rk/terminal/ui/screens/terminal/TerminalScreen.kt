@@ -127,7 +127,7 @@ fun TerminalScreen(
             BackgroundImage(terminalViewModel)
 
             Column {
-                if (terminalViewModel.showToolbar) {
+                if (false) { // Hiding toolbar for full-screen terminal
                     TerminalTopBar(
                         sessionBinder = sessionBinder,
                         onMenuClick = { scope.launch { drawerState.open() } },
