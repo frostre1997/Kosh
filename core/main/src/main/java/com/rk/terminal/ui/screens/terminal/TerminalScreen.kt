@@ -146,7 +146,7 @@ fun TerminalScreen(
                         viewModel = terminalViewModel,
                         mainActivity = mainActivity,
                         sessionBinder = sessionBinder,
-                        modifier = Modifier
+                        modifier = Modifier.fillMaxSize()
                             .imePadding()
                             .navigationBarsPadding()
                             .padding(top = topPadding)
