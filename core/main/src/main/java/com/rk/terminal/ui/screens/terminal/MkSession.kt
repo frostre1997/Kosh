@@ -1,6 +1,5 @@
 package com.kosh.shell.ui.screens.terminal
 
-import com.kosh.shell.ShellTermSession
 import android.content.Context
 import com.kosh.shell.libcommons.alpineHomeDir
 import com.kosh.shell.libcommons.child
@@ -14,7 +13,6 @@ import com.kosh.shell.ui.screens.settings.WorkingMode
 import com.termux.terminal.TerminalEmulator
 import com.termux.terminal.TerminalSession
 import com.termux.terminal.TerminalSessionClient
-import com.kosh.shell.ShellTermSession
 import java.io.File
 nprivate fun extractAlpineRootfs(context: Context): File {
     val rootfsDir = File(context.filesDir, "alpine-rootfs")
