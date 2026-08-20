@@ -1,1 +1,17 @@
-<p>ReTerminal is a sleek, Material 3-inspired terminal emulator designed as a modern alternative to the legacy Jackpal Terminal. Built on Termux's robust TerminalView</p>
+<p>Kosh is a modern, feature-rich shell environment for Android, built on Termux's robust TerminalView engine. It provides a full Linux command-line experience with Alpine Linux, BusyBox utilities, and a built-in package manager.</p>
+
+<p><strong>Key features:</strong><br/>
+• Full terminal emulation (VT-100, xterm)<br/>
+• Multiple sessions with tab switching<br/>
+• Alpine Linux support with <code>apk</code> package manager<br/>
+• BusyBox (300+ commands) – <code>ls</code>, <code>cp</code>, <code>mv</code>, <code>rm</code>, <code>cat</code>, <code>grep</code>, <code>find</code>, <code>tar</code>, and more<br/>
+• Custom package manager (<code>pkg</code>) for on-demand installations<br/>
+• Virtual keys (ESC, Ctrl, Alt, arrows, etc.)<br/>
+• Configurable keyboard shortcuts<br/>
+• Material 3 design with dark/light themes<br/>
+• Lightweight and offline-first<br/>
+• No root required</p>
+
+<p>Kosh is a fork of ReTerminal, rebranded and enhanced with additional shell features for power users.</p>
+
+<p>Download the latest APK from the <a href="https://github.com/frostre1997/Kosh/releases">GitHub Releases</a>.</p>
