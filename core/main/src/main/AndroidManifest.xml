@@ -24,6 +24,13 @@
                 <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
             </intent-filter>
         </provider>
+        <receiver
+    android:name="com.kosh.shell.WakelockReceiver"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="com.kosh.shell.TOGGLE_WAKELOCK" />
+    </intent-filter>
+</receiver>
     </application>
 
 </manifest>

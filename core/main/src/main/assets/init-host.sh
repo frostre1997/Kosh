@@ -149,3 +149,33 @@ echo "alias uptime='k --uptm'" >> /root/.profile
 echo "alias device='k --dinf'" >> /root/.profile
 echo "alias ip='k --ip'" >> /root/.profile
 echo "alias dns='k --dns'" >> /root/.profile
+
+# ─── Wakelock script using broadcast ─────────────────────────────
+cat > /root/bin/wakelock << 'SCRIPT'
+#!/system/bin/sh
+case "$1" in
+    -y|--yes)
+        am broadcast -a com.kosh.shell.TOGGLE_WAKELOCK
+        echo "Wakelock toggled (dialog will open if needed)."
+        ;;
+    -r|--raw)
+        am broadcast -a com.kosh.shell.TOGGLE_WAKELOCK
+        echo "Wakelock toggled (no dialog)."
+        ;;
+    -s|--status)
+        dumpsys power | grep -q "mHoldingWakeLockSuspendBlocker" && echo "Wakelock held" || echo "Wakelock not held"
+        ;;
+    -h|--help)
+        echo "Usage: wakelock [-y|-r|-s|-h]"
+        echo "  -y, --yes     Toggle wakelock (may open battery dialog)"
+        echo "  -r, --raw     Toggle wakelock immediately (no dialog)"
+        echo "  -s, --status  Show current wakelock status"
+        echo "  -h, --help    Show this help"
+        ;;
+    *)
+        am broadcast -a com.kosh.shell.TOGGLE_WAKELOCK
+        echo "Wakelock toggled."
+        ;;
+esac
+SCRIPT
+chmod +x /root/bin/wakelock
