@@ -1,15 +1,18 @@
 #!/system/bin/sh
-export HOME=/storage/emulated/0
-export PS1='localhost@hostname:\w# '
-cd /storage/emulated/0
-mkdir -p /data/data/com.kosh.shell.dev/files/bin
-export PATH=/data/data/com.kosh.shell.dev/files/bin:$PATH
-echo 'export PATH=/data/data/com.kosh.shell.dev/files/bin:$PATH' >> /data/data/com.kosh.shell.dev/files/.profile
-echo "150.1.01.0" > /data/data/com.kosh.shell.dev/files/.kosh_version
 
-cat > /data/data/com.kosh.shell.dev/files/bin/k << 'SCRIPT'
+# ─── Use a writable directory ──────────────────────────────────────
+export HOME=/data/data/com.kosh.shell/files
+mkdir -p "$HOME/bin"
+export PATH="$HOME/bin:$PATH"
+cd "$HOME" || exit
+
+# ─── Version file ──────────────────────────────────────────────────
+echo "150.1.01.0" > "$HOME/.kosh_version"
+
+# ─── `k` command (official flags) ─────────────────────────────────
+cat > "$HOME/bin/k" << 'SCRIPT'
 #!/system/bin/sh
-VERSION=$(cat /data/data/com.kosh.shell.dev/files/.kosh_version 2>/dev/null || echo "150.1.01.0")
+VERSION=$(cat "$HOME/.kosh_version" 2>/dev/null || echo "150.1.01.0")
 show_help() {
     cat << HELP
 Kosh v$VERSION
@@ -25,18 +28,19 @@ HELP
 }
 case "$1" in
     --h) show_help ;;
-    --st) /data/data/com.kosh.shell.dev/files/bin/storage ;;
-    --uptm) /data/data/com.kosh.shell.dev/files/bin/uptime ;;
-    --dinf) /data/data/com.kosh.shell.dev/files/bin/deviceinfo ;;
-    --ip) /data/data/com.kosh.shell.dev/files/bin/ipinfo ;;
-    --dns) /data/data/com.kosh.shell.dev/files/bin/dnsinfo ;;
-    --update) /data/data/com.kosh.shell.dev/files/bin/update ;;
+    --st) "$HOME/bin/storage" ;;
+    --uptm) "$HOME/bin/uptime" ;;
+    --dinf) "$HOME/bin/deviceinfo" ;;
+    --ip) "$HOME/bin/ipinfo" ;;
+    --dns) "$HOME/bin/dnsinfo" ;;
+    --update) "$HOME/bin/update" ;;
     *) show_help ;;
 esac
 SCRIPT
-chmod +x /data/data/com.kosh.shell.dev/files/bin/k
+chmod +x "$HOME/bin/k"
 
-cat > /data/data/com.kosh.shell.dev/files/bin/storage << 'SCRIPT'
+# ─── Sub‑commands ──────────────────────────────────────────────────
+cat > "$HOME/bin/storage" << 'SCRIPT'
 #!/system/bin/sh
 echo "=== Internal Storage (/storage/emulated/0) ==="
 df -h /storage/emulated/0 | grep -v Filesystem | awk '{print "Size: "$2 "  Used: "$3 "  Avail: "$4 "  Use%: "$5}'
@@ -49,9 +53,9 @@ else
     echo "No external SD card found."
 fi
 SCRIPT
-chmod +x /data/data/com.kosh.shell.dev/files/bin/storage
+chmod +x "$HOME/bin/storage"
 
-cat > /data/data/com.kosh.shell.dev/files/bin/uptime << 'SCRIPT'
+cat > "$HOME/bin/uptime" << 'SCRIPT'
 #!/system/bin/sh
 uptime_seconds=$(cat /proc/uptime | cut -d. -f1)
 days=$((uptime_seconds / 86400))
@@ -59,41 +63,41 @@ hours=$(( (uptime_seconds % 86400) / 3600 ))
 mins=$(( (uptime_seconds % 3600) / 60 ))
 echo "Uptime: ${days}d ${hours}h ${mins}m"
 SCRIPT
-chmod +x /data/data/com.kosh.shell.dev/files/bin/uptime
+chmod +x "$HOME/bin/uptime"
 
-cat > /data/data/com.kosh.shell.dev/files/bin/deviceinfo << 'SCRIPT'
+cat > "$HOME/bin/deviceinfo" << 'SCRIPT'
 #!/system/bin/sh
 echo "Device: $(getprop ro.product.model 2>/dev/null || echo "Unknown")"
 echo "Android: $(getprop ro.build.version.release 2>/dev/null || echo "Unknown") (API $(getprop ro.build.version.sdk 2>/dev/null || echo "?"))"
 echo "Kernel: $(uname -r 2>/dev/null || echo "Unknown")"
 echo "Architecture: $(uname -m 2>/dev/null || echo "Unknown")"
 SCRIPT
-chmod +x /data/data/com.kosh.shell.dev/files/bin/deviceinfo
+chmod +x "$HOME/bin/deviceinfo"
 
-cat > /data/data/com.kosh.shell.dev/files/bin/ipinfo << 'SCRIPT'
+cat > "$HOME/bin/ipinfo" << 'SCRIPT'
 #!/system/bin/sh
 echo "Wi‑Fi IP:"
 ip addr show wlan0 2>/dev/null | grep "inet " | awk '{print $2}' | cut -d/ -f1 || echo "No Wi‑Fi IP"
 echo "Mobile IP:"
 ip addr show rmnet0 2>/dev/null | grep "inet " | awk '{print $2}' | cut -d/ -f1 || echo "No mobile IP"
 SCRIPT
-chmod +x /data/data/com.kosh.shell.dev/files/bin/ipinfo
+chmod +x "$HOME/bin/ipinfo"
 
-cat > /data/data/com.kosh.shell.dev/files/bin/dnsinfo << 'SCRIPT'
+cat > "$HOME/bin/dnsinfo" << 'SCRIPT'
 #!/system/bin/sh
 echo "DNS Servers:"
 cat /etc/resolv.conf 2>/dev/null | grep nameserver | awk '{print $2}' || echo "No DNS configuration found."
 SCRIPT
-chmod +x /data/data/com.kosh.shell.dev/files/bin/dnsinfo
+chmod +x "$HOME/bin/dnsinfo"
 
-cat > /data/data/com.kosh.shell.dev/files/bin/update << 'SCRIPT'
+cat > "$HOME/bin/update" << 'SCRIPT'
 #!/system/bin/sh
 echo "Checking for updates..."
 LATEST=$(curl -s https://api.github.com/repos/frostre1997/Kosh/releases/latest | grep -o '"tag_name": "[^"]*"' | cut -d'"' -f4)
 if [ -n "$LATEST" ]; then
     echo "Latest version: $LATEST"
-    echo "Current version: $(cat /data/data/com.kosh.shell.dev/files/.kosh_version)"
-    if [ "$LATEST" != "$(cat /data/data/com.kosh.shell.dev/files/.kosh_version)" ]; then
+    echo "Current version: $(cat "$HOME/.kosh_version")"
+    if [ "$LATEST" != "$(cat "$HOME/.kosh_version")" ]; then
         echo "A new version is available. Download from:"
         echo "https://github.com/frostre1997/Kosh/releases"
     else
@@ -103,11 +107,12 @@ else
     echo "Could not check for updates."
 fi
 SCRIPT
-chmod +x /data/data/com.kosh.shell.dev/files/bin/update
+chmod +x "$HOME/bin/update"
 
-cat > /data/data/com.kosh.shell.dev/files/bin/!! << 'SCRIPT'
+# ─── Quick commands ──────────────────────────────────────────────
+cat > "$HOME/bin/!!" << 'SCRIPT'
 #!/system/bin/sh
-LAST=$(tail -n 2 /data/data/com.kosh.shell.dev/files/.ash_history | head -n 1 | sed 's/^[ \t]*//')
+LAST=$(tail -n 2 "$HOME/.ash_history" 2>/dev/null | head -n 1 | sed 's/^[ \t]*//')
 if [ -n "$LAST" ]; then
     echo "$LAST"
     eval "$LAST"
@@ -115,16 +120,16 @@ else
     echo "No previous command."
 fi
 SCRIPT
-chmod +x /data/data/com.kosh.shell.dev/files/bin/!!
+chmod +x "$HOME/bin/!!"
 
-cat > /data/data/com.kosh.shell.dev/files/bin/!!! << 'SCRIPT'
+cat > "$HOME/bin/!!!" << 'SCRIPT'
 #!/system/bin/sh
 echo "Last 10 commands:"
-tail -n 10 /data/data/com.kosh.shell.dev/files/.ash_history | cat -n
+tail -n 10 "$HOME/.ash_history" 2>/dev/null | cat -n
 SCRIPT
-chmod +x /data/data/com.kosh.shell.dev/files/bin/!!!
+chmod +x "$HOME/bin/!!!"
 
-cat > /data/data/com.kosh.shell.dev/files/bin/bg << 'SCRIPT'
+cat > "$HOME/bin/bg" << 'SCRIPT'
 #!/system/bin/sh
 if [ -z "$1" ]; then
     echo "Usage: bg <command> [args...]"
@@ -133,25 +138,16 @@ fi
 nohup "$@" </dev/null >/dev/null 2>&1 &
 echo "Background job started: $!"
 SCRIPT
-chmod +x /data/data/com.kosh.shell.dev/files/bin/bg
+chmod +x "$HOME/bin/bg"
 
-cat > /data/data/com.kosh.shell.dev/files/bin/! << 'SCRIPT'
+cat > "$HOME/bin/!" << 'SCRIPT'
 #!/system/bin/sh
 echo "!"
 SCRIPT
-chmod +x /data/data/com.kosh.shell.dev/files/bin/!
+chmod +x "$HOME/bin/!"
 
-echo "alias sp='suspend'" >> /data/data/com.kosh.shell.dev/files/.profile
-echo "alias rs='resume'" >> /data/data/com.kosh.shell.dev/files/.profile
-echo "alias help='k --h'" >> /data/data/com.kosh.shell.dev/files/.profile
-echo "alias storage='k --st'" >> /data/data/com.kosh.shell.dev/files/.profile
-echo "alias uptime='k --uptm'" >> /data/data/com.kosh.shell.dev/files/.profile
-echo "alias device='k --dinf'" >> /data/data/com.kosh.shell.dev/files/.profile
-echo "alias ip='k --ip'" >> /data/data/com.kosh.shell.dev/files/.profile
-echo "alias dns='k --dns'" >> /data/data/com.kosh.shell.dev/files/.profile
-
-# ─── Wakelock script using broadcast ─────────────────────────────
-cat > /data/data/com.kosh.shell.dev/files/bin/wakelock << 'SCRIPT'
+# ─── Wakelock command (broadcast) ────────────────────────────────
+cat > "$HOME/bin/wakelock" << 'SCRIPT'
 #!/system/bin/sh
 case "$1" in
     -y|--yes)
@@ -178,4 +174,22 @@ case "$1" in
         ;;
 esac
 SCRIPT
-chmod +x /data/data/com.kosh.shell.dev/files/bin/wakelock
+chmod +x "$HOME/bin/wakelock"
+
+# ─── Aliases ──────────────────────────────────────────────────────
+echo "alias sp='suspend'" >> "$HOME/.profile"
+echo "alias rs='resume'" >> "$HOME/.profile"
+echo "alias help='k --h'" >> "$HOME/.profile"
+echo "alias storage='k --st'" >> "$HOME/.profile"
+echo "alias uptime='k --uptm'" >> "$HOME/.profile"
+echo "alias device='k --dinf'" >> "$HOME/.profile"
+echo "alias ip='k --ip'" >> "$HOME/.profile"
+echo "alias dns='k --dns'" >> "$HOME/.profile"
+echo "export PATH=\$HOME/bin:\$PATH" >> "$HOME/.profile"
+
+# ─── Set PS1 to show the path ─────────────────────────────────────
+echo "export PS1='localhost@hostname:\\w# '" >> "$HOME/.profile"
+
+# ─── Ensure we start in /storage/emulated/0 ──────────────────────
+cd /storage/emulated/0 || cd /sdcard || exit
+exec /system/bin/sh -l
