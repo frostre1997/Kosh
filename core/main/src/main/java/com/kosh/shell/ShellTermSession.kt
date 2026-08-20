@@ -18,8 +18,7 @@ class ShellTermSession(
     env: Array<String>,
     transcriptRows: Int,
     client: TerminalSessionClient,
-    private val context: Context,
-    private val procId: Int
+    private val context: Context
 ) : TerminalSession(shell, cwd, args, env, transcriptRows, client) {
 
     override fun write(bytes: ByteArray, offset: Int, length: Int) {
@@ -29,21 +28,6 @@ class ShellTermSession(
             return
         }
 
-        // ─── Suspend / Resume ──────────────────────────────────────────
-        if (cmd == "suspend" || cmd == "sp") {
-            TermExec.sendSignal(-procId, 19) // SIGSTOP
-            val msg = "Session suspended.\n"
-            appendToEmulator(msg.toByteArray(), 0, msg.length)
-            return
-        }
-        if (cmd == "resume" || cmd == "rs") {
-            TermExec.sendSignal(-procId, 18) // SIGCONT
-            val msg = "Session resumed.\n"
-            appendToEmulator(msg.toByteArray(), 0, msg.length)
-            return
-        }
-
-        // ─── Wakelock with flags ──────────────────────────────────────
         if (cmd.startsWith("wakelock")) {
             val parts = cmd.split(" ")
             val flag = if (parts.size > 1) parts[1] else ""
@@ -63,13 +47,13 @@ class ShellTermSession(
                             return
                         }
                     }
-                    TermService.toggleWakelock()
+                    TermService.toggleWakelock(context)
                     val msg = "Wakelock toggled.\n"
                     appendToEmulator(msg.toByteArray(), 0, msg.length)
                     return
                 }
                 "-r" -> {
-                    TermService.toggleWakelock()
+                    TermService.toggleWakelock(context)
                     val msg = "Wakelock toggled (no dialog).\n"
                     appendToEmulator(msg.toByteArray(), 0, msg.length)
                     return
@@ -105,7 +89,7 @@ class ShellTermSession(
                             return
                         }
                     }
-                    TermService.toggleWakelock()
+                    TermService.toggleWakelock(context)
                     val msg = "Wakelock toggled.\n"
                     appendToEmulator(msg.toByteArray(), 0, msg.length)
                     return
@@ -113,7 +97,6 @@ class ShellTermSession(
             }
         }
 
-        // ─── All other commands ──────────────────────────────────────
         super.write(bytes, offset, length)
     }
 }
