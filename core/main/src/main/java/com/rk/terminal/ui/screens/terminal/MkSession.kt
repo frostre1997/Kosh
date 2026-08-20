@@ -1,5 +1,4 @@
 package com.rk.terminal.ui.screens.terminal
-import java.io.FileOutputStream
 
 import android.content.Context
 import com.rk.libcommons.alpineHomeDir
@@ -15,8 +14,53 @@ import com.termux.terminal.TerminalEmulator
 import com.termux.terminal.TerminalSession
 import com.termux.terminal.TerminalSessionClient
 import java.io.File
+import java.io.FileOutputStream
+
+data class PendingCommand(
+    val shell: String,
+    val args: Array<String>,
+    val workingDir: String?,
+    val env: List<String>?
+)
 
 object MkSession {
+    // Extract any asset binary to files dir and make executable
+    private fun extractBinary(context: Context, assetName: String): File {
+        val targetFile = File(context.filesDir, assetName)
+        if (!targetFile.exists()) {
+            try {
+                context.assets.open(assetName).use { input ->
+                    FileOutputStream(targetFile).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+                targetFile.setExecutable(true)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        return targetFile
+    }
+
+    // Extract Alpine rootfs from assets on first run
+    private fun extractAlpineRootfs(context: Context): File {
+        val rootfsDir = File(context.filesDir, "alpine-rootfs")
+        if (!rootfsDir.exists()) {
+            rootfsDir.mkdirs()
+            try {
+                context.assets.open("alpine-rootfs.tar.gz").use { input ->
+                    val tempFile = File(context.cacheDir, "alpine-rootfs.tar.gz")
+                    tempFile.outputStream().use { output -> input.copyTo(output) }
+                    Runtime.getRuntime().exec(arrayOf("tar", "-xzf", tempFile.absolutePath, "-C", rootfsDir.absolutePath)).waitFor()
+                    tempFile.delete()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        return rootfsDir
+    }
+
     fun createSession(
         context: Context,
         sessionClient: TerminalSessionClient,
@@ -39,26 +83,18 @@ object MkSession {
 
             val workingDir = pendingCommand?.workingDir ?: alpineHomeDir().path
 
+            // Extract binaries if they don't exist
+            extractBinary(context, "busybox")
+            extractBinary(context, "bash")
+            extractBinary(context, "python")
+            extractBinary(context, "pkg.sh")
+
+            // Alpine rootfs extraction
+            val alpineRoot = extractAlpineRootfs(context)
+
             val useChroot = Rootfs.execMode.value == ExecMode.CHROOT
 
             val initFile: File = localBinDir().child("init-host")
-    private fun extractBinary(context: Context, assetName: String): File {
-        val targetFile = File(context.filesDir, assetName)
-        if (!targetFile.exists()) {
-            try {
-                context.assets.open(assetName).use { input ->
-                    FileOutputStream(targetFile).use { output ->
-                        input.copyTo(output)
-                    }
-                }
-                targetFile.setExecutable(true)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-        return targetFile
-    }
-
             if (initFile.exists().not()) {
                 initFile.createFileIfNot()
                 assets.open("init-host.sh").bufferedReader().use { it.readText() }.let {
@@ -67,23 +103,6 @@ object MkSession {
             }
 
             val initChrootFile: File = localBinDir().child("init-host-chroot")
-    private fun extractBinary(context: Context, assetName: String): File {
-        val targetFile = File(context.filesDir, assetName)
-        if (!targetFile.exists()) {
-            try {
-                context.assets.open(assetName).use { input ->
-                    FileOutputStream(targetFile).use { output ->
-                        input.copyTo(output)
-                    }
-                }
-                targetFile.setExecutable(true)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-        return targetFile
-    }
-
             if (useChroot && initChrootFile.exists().not()) {
                 initChrootFile.createFileIfNot()
                 assets.open("init-host-chroot.sh").bufferedReader().use { it.readText() }.let {
@@ -92,23 +111,6 @@ object MkSession {
             }
 
             localBinDir().child("init").apply {
-    private fun extractBinary(context: Context, assetName: String): File {
-        val targetFile = File(context.filesDir, assetName)
-        if (!targetFile.exists()) {
-            try {
-                context.assets.open(assetName).use { input ->
-                    FileOutputStream(targetFile).use { output ->
-                        input.copyTo(output)
-                    }
-                }
-                targetFile.setExecutable(true)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-        return targetFile
-    }
-
                 if (exists().not()) {
                     createFileIfNot()
                     assets.open("init.sh").bufferedReader().use { it.readText() }.let {
@@ -117,48 +119,17 @@ object MkSession {
                 }
             }
 
-            val env = mutableListOf(
-                "PATH=${System.getenv("PATH") ?: "/system/bin:/system/xbin"}:/sbin:${localBinDir().absolutePath}:$binDir",
-    private fun extractBinary(context: Context, assetName: String): File {
-        val targetFile = File(context.filesDir, assetName)
-        if (!targetFile.exists()) {
-            try {
-                context.assets.open(assetName).use { input ->
-                    FileOutputStream(targetFile).use { output ->
-                        input.copyTo(output)
-                    }
-                }
-                targetFile.setExecutable(true)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-        return targetFile
-    }
+            // Build PATH with the files directory (where binaries are extracted)
+            val binPath = context.filesDir.absolutePath
 
+            val env = mutableListOf(
+                "PATH=${System.getenv("PATH") ?: "/system/bin:/system/xbin"}:/sbin:${localBinDir().absolutePath}:$binPath",
                 "HOME=/sdcard",
                 "PUBLIC_HOME=${getExternalFilesDir(null)?.absolutePath}",
                 "COLORTERM=truecolor",
                 "TERM=xterm-256color",
                 "LANG=C.UTF-8",
                 "BIN=${localBinDir()}",
-    private fun extractBinary(context: Context, assetName: String): File {
-        val targetFile = File(context.filesDir, assetName)
-        if (!targetFile.exists()) {
-            try {
-                context.assets.open(assetName).use { input ->
-                    FileOutputStream(targetFile).use { output ->
-                        input.copyTo(output)
-                    }
-                }
-                targetFile.setExecutable(true)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-        return targetFile
-    }
-
                 "DEBUG=${BuildConfig.DEBUG}",
                 "PREFIX=${filesDir.parentFile!!.path}",
                 "LD_LIBRARY_PATH=${localLibDir().absolutePath}",
@@ -173,6 +144,7 @@ object MkSession {
                 "PROOT=${applicationInfo.nativeLibraryDir}/libproot.so",
                 "CHROOT=${if (File("/system/bin/chroot").exists()) "/system/bin/chroot" else "/system/xbin/chroot"}",
                 "USE_CHROOT=${if (useChroot) "1" else "0"}",
+                "ALPINE_ROOT=${alpineRoot.absolutePath}"
             )
 
             val loader32 = "${applicationInfo.nativeLibraryDir}/libloader32.so"
@@ -254,10 +226,3 @@ object MkSession {
         )
     }
 }
-
-data class PendingCommand(
-    val shell: String,
-    val args: Array<String>,
-    val workingDir: String?,
-    val env: List<String>?
-)
