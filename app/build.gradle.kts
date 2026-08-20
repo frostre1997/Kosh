@@ -61,12 +61,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("release")
-            resValue("string","app_name","ReTerminal")
+            resValue("string","app_name","Kosh")
         }
         debug{
-            applicationIdSuffix = ".debug"
-            versionNameSuffix = "-DEBUG"
-            resValue("string","app_name","ReTerminal-Debug")
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-DEV"
+            resValue("string","app_name","Kosh-Dev")
         }
     }
 
