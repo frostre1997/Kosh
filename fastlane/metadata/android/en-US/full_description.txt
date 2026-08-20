@@ -12,6 +12,6 @@
 • Lightweight and offline-first<br/>
 • No root required</p>
 
-<p>Kosh is a fork of ReTerminal, rebranded and enhanced with additional shell features for power users.</p>
+<p>Kosh is a fork of Kosh, rebranded and enhanced with additional shell features for power users.</p>
 
 <p>Download the latest APK from the <a href="https://github.com/frostre1997/Kosh/releases">GitHub Releases</a>.</p>

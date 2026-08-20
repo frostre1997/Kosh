@@ -1,7 +1,20 @@
 #!/system/bin/sh
 
-# ─── Use a writable directory ──────────────────────────────────────
-export HOME=/data/data/com.kosh.shell/files
+# ─── Detect writable app directory ────────────────────────────────
+# The script is at /data/user/0/<package>/local/bin/init-host
+SCRIPT_PATH="$(realpath "$0" 2>/dev/null || echo "$0")"
+APP_DATA_DIR="$(echo "$SCRIPT_PATH" | sed -E 's|(/data/user/0/[^/]+)/local/bin/init-host$|\1|')"
+
+if [ -z "$APP_DATA_DIR" ] || [ ! -d "$APP_DATA_DIR" ]; then
+    # Fallback: use HOME if set, otherwise use default
+    if [ -n "$HOME" ] && [ -d "$HOME" ]; then
+        APP_DATA_DIR="$HOME"
+    else
+        APP_DATA_DIR="/data/user/0/com.kosh.shell.dev"
+    fi
+fi
+
+export HOME="$APP_DATA_DIR/files"
 mkdir -p "$HOME/bin"
 export PATH="$HOME/bin:$PATH"
 cd "$HOME" || exit
