@@ -41,6 +41,20 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Force fullscreen after layout is ready
+        window.decorView.post {
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+            hideSystemBars()
+        }
+        
+        // Re-hide bars if they become visible (e.g., swipe from top)
+        window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
+            if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
+                hideSystemBars()
+            }
+        }
 
         // 1. Configure the window for immersive edge-to-edge content
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -99,6 +113,7 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onResume() {
+        window.decorView.post { hideSystemBars() }
         super.onResume()
         // 3. Ensure bars remain hidden when re-focusing or returning to the terminal
         hideSystemBars()
