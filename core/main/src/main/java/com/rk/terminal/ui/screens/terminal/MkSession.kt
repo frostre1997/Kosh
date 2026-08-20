@@ -1,5 +1,6 @@
 package com.kosh.shell.ui.screens.terminal
 
+import com.kosh.shell.ShellTermSession
 import android.content.Context
 import com.kosh.shell.libcommons.alpineHomeDir
 import com.kosh.shell.libcommons.child
@@ -13,9 +14,11 @@ import com.kosh.shell.ui.screens.settings.WorkingMode
 import com.termux.terminal.TerminalEmulator
 import com.termux.terminal.TerminalSession
 import com.termux.terminal.TerminalSessionClient
+import com.kosh.shell.ShellTermSession
 import java.io.File
 nprivate fun extractAlpineRootfs(context: Context): File {
     val rootfsDir = File(context.filesDir, "alpine-rootfs")
+    val mProcId = TermExec.createSubprocess(mTermFd, arg0, args, env)
     if (!rootfsDir.exists()) {
         rootfsDir.mkdirs()
         try {
@@ -220,13 +223,15 @@ object MkSession {
                 pendingCommand.shell
             }
 
-            return TerminalSession(
+            return ShellTermSession(
                 shell,
                 workingDir,
                 args,
                 env.toTypedArray(),
                 TerminalEmulator.DEFAULT_TERMINAL_TRANSCRIPT_ROWS,
                 sessionClient,
+                context,
+                mProcId
             )
         }
     }
