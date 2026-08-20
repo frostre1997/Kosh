@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.screens.terminal
+package com.kosh.shell.ui.screens.terminal
 
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
@@ -18,9 +18,9 @@ import com.rk.libcommons.child
 import com.rk.libcommons.dpToPx
 import com.rk.libcommons.localDir
 import com.rk.settings.Settings
-import com.rk.terminal.service.SessionService
-import com.rk.terminal.ui.activities.terminal.MainActivity
-import com.rk.terminal.ui.screens.terminal.virtualkeys.*
+import com.kosh.shell.service.SessionService
+import com.kosh.shell.ui.activities.terminal.MainActivity
+import com.kosh.shell.ui.screens.terminal.virtualkeys.*
 import com.termux.terminal.TerminalColors
 import com.termux.view.TerminalView
 import java.io.FileInputStream

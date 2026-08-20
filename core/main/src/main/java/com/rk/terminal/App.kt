@@ -1,4 +1,4 @@
-package com.rk.terminal
+package com.kosh.shell
 
 import android.app.Application
 import android.content.Context
@@ -7,7 +7,7 @@ import android.os.StrictMode
 import com.github.anrwatchdog.ANRWatchDog
 import com.rk.libcommons.application
 import com.rk.resources.Res
-import com.rk.terminal.ui.screens.terminal.TerminalUtils
+import com.kosh.shell.ui.screens.terminal.TerminalUtils
 import com.rk.update.UpdateManager
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers

@@ -1,10 +1,10 @@
-package com.rk.terminal.ui.screens.terminal
+package com.kosh.shell.ui.screens.terminal
 
 import android.view.KeyEvent
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.ClipboardUtils
 import com.rk.settings.Settings
-import com.rk.terminal.ui.activities.terminal.MainActivity
+import com.kosh.shell.ui.activities.terminal.MainActivity
 
 object KeyShortcutHandler {
 

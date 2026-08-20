@@ -1,4 +1,4 @@
-package com.rk.terminal.service
+package com.kosh.shell.service
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -16,10 +16,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.core.app.NotificationCompat
 import com.rk.resources.drawables
 import com.rk.resources.strings
-import com.rk.terminal.ui.activities.terminal.MainActivity
-import com.rk.terminal.ui.screens.terminal.CustomSessions
-import com.rk.terminal.ui.screens.terminal.MkSession
-import com.rk.terminal.ui.screens.terminal.PendingCommand
+import com.kosh.shell.ui.activities.terminal.MainActivity
+import com.kosh.shell.ui.screens.terminal.CustomSessions
+import com.kosh.shell.ui.screens.terminal.MkSession
+import com.kosh.shell.ui.screens.terminal.PendingCommand
 import com.termux.terminal.TerminalSession
 import com.termux.terminal.TerminalSessionClient
 

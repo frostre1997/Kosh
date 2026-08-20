@@ -17,7 +17,7 @@ val gitCommitDate: Provider<String> =
 
 
 android {
-    namespace = "com.rk.terminal"
+    namespace = "com.kosh.shell"
     android.buildFeatures.buildConfig = true
     compileSdk = 37
 

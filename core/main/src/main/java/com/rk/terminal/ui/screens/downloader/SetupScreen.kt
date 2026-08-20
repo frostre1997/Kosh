@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.screens.downloader
+package com.kosh.shell.ui.screens.downloader
 
 import android.os.Build
 import androidx.compose.foundation.layout.*
@@ -12,10 +12,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.rk.libcommons.*
 import com.rk.resources.strings
-import com.rk.terminal.ui.activities.terminal.MainActivity
-import com.rk.terminal.ui.screens.terminal.ExecMode
-import com.rk.terminal.ui.screens.terminal.Rootfs
-import com.rk.terminal.ui.screens.terminal.TerminalScreen
+import com.kosh.shell.ui.activities.terminal.MainActivity
+import com.kosh.shell.ui.screens.terminal.ExecMode
+import com.kosh.shell.ui.screens.terminal.Rootfs
+import com.kosh.shell.ui.screens.terminal.TerminalScreen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File

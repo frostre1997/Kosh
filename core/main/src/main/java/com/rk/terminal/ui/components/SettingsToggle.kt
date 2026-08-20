@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.components
+package com.kosh.shell.ui.components
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.ExperimentalFoundationApi

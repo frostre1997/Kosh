@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.screens.settings
+package com.kosh.shell.ui.screens.settings
 
 import android.content.Intent
 import android.os.Build
@@ -24,12 +24,12 @@ import com.rk.components.compose.preferences.base.PreferenceLayout
 import com.rk.components.compose.preferences.base.PreferenceTemplate
 import com.rk.resources.strings
 import com.rk.settings.Settings
-import com.rk.terminal.ui.activities.terminal.MainActivity
-import com.rk.terminal.ui.components.SettingsToggle
-import com.rk.terminal.ui.routes.MainActivityRoutes
-import com.rk.terminal.ui.screens.terminal.CustomSessions
-import com.rk.terminal.ui.screens.terminal.ExecMode
-import com.rk.terminal.ui.screens.terminal.Rootfs
+import com.kosh.shell.ui.activities.terminal.MainActivity
+import com.kosh.shell.ui.components.SettingsToggle
+import com.kosh.shell.ui.routes.MainActivityRoutes
+import com.kosh.shell.ui.screens.terminal.CustomSessions
+import com.kosh.shell.ui.screens.terminal.ExecMode
+import com.kosh.shell.ui.screens.terminal.Rootfs
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

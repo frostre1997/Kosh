@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.components
+package com.kosh.shell.ui.components
 
 import android.app.Activity
 import androidx.compose.runtime.Composable

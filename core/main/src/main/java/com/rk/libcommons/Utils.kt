@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import com.blankj.utilcode.util.ThreadUtils
 import com.rk.resources.getString
-import com.rk.terminal.BuildConfig
+import com.kosh.shell.BuildConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers

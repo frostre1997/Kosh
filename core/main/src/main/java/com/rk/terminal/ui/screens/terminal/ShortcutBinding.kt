@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.screens.terminal
+package com.kosh.shell.ui.screens.terminal
 
 import android.view.KeyEvent
 

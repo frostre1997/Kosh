@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.activities.terminal
+package com.kosh.shell.ui.activities.terminal
 
 import android.content.ComponentName
 import android.content.Context
@@ -11,7 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.rk.settings.Settings
-import com.rk.terminal.service.SessionService
+import com.kosh.shell.service.SessionService
 
 class MainViewModel : ViewModel() {
     var sessionBinder by mutableStateOf<SessionService.SessionBinder?>(null)

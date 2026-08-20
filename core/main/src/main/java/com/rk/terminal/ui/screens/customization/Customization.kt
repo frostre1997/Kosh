@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.screens.customization
+package com.kosh.shell.ui.screens.customization
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -32,9 +32,9 @@ import com.rk.components.compose.preferences.switch.PreferenceSwitch
 import com.rk.libcommons.*
 import com.rk.resources.strings
 import com.rk.settings.Settings
-import com.rk.terminal.ui.activities.terminal.MainViewModel
-import com.rk.terminal.ui.components.SettingsToggle
-import com.rk.terminal.ui.screens.terminal.*
+import com.kosh.shell.ui.activities.terminal.MainViewModel
+import com.kosh.shell.ui.components.SettingsToggle
+import com.kosh.shell.ui.screens.terminal.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -47,7 +47,7 @@ private const val MAX_TEXT_SIZE = 20f
 
 @Composable
 fun Customization(
-    mainActivity: com.rk.terminal.ui.activities.terminal.MainActivity,
+    mainActivity: com.kosh.shell.ui.activities.terminal.MainActivity,
     navController: NavController,
     mainViewModel: MainViewModel = viewModel(mainActivity),
     terminalViewModel: TerminalViewModel = viewModel(mainActivity)

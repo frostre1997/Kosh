@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.screens.terminal
+package com.kosh.shell.ui.screens.terminal
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.*
@@ -17,8 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.rk.resources.strings
-import com.rk.terminal.service.SessionService
-import com.rk.terminal.ui.routes.MainActivityRoutes
+import com.kosh.shell.service.SessionService
+import com.kosh.shell.ui.routes.MainActivityRoutes
 
 @Composable
 fun TerminalDrawer(

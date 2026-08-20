@@ -20,7 +20,7 @@ import java.io.IOException
 import java.util.Collections
 import java.util.LinkedList
 import java.util.Locale
-import com.rk.terminal.R
+import com.kosh.shell.R
 
 class AlpineDocumentProvider : DocumentsProvider() {
 

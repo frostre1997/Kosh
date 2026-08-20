@@ -72,7 +72,7 @@ android {
 
     
     defaultConfig {
-        applicationId = "com.rk.terminal"
+        applicationId = "com.kosh.shell"
         minSdk = 26
         targetSdk = 37
         versionCode = 10

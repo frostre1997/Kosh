@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.navHosts
+package com.kosh.shell.ui.navHosts
 
 import android.content.res.Configuration
 import android.os.Build
@@ -12,14 +12,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.rk.settings.Settings
-import com.rk.terminal.ui.activities.terminal.MainActivity
-import com.rk.terminal.ui.animations.NavigationAnimationTransitions
-import com.rk.terminal.ui.routes.MainActivityRoutes
-import com.rk.terminal.ui.screens.customization.Customization
-import com.rk.terminal.ui.screens.downloader.SetupScreen
-import com.rk.terminal.ui.screens.settings.Settings
-import com.rk.terminal.ui.screens.terminal.Rootfs
-import com.rk.terminal.ui.screens.terminal.TerminalScreen
+import com.kosh.shell.ui.activities.terminal.MainActivity
+import com.kosh.shell.ui.animations.NavigationAnimationTransitions
+import com.kosh.shell.ui.routes.MainActivityRoutes
+import com.kosh.shell.ui.screens.customization.Customization
+import com.kosh.shell.ui.screens.downloader.SetupScreen
+import com.kosh.shell.ui.screens.settings.Settings
+import com.kosh.shell.ui.screens.terminal.Rootfs
+import com.kosh.shell.ui.screens.terminal.TerminalScreen
 
 @Composable
 fun MainActivityNavHost(

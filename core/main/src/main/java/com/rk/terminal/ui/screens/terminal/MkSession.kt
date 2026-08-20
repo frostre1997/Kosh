@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.screens.terminal
+package com.kosh.shell.ui.screens.terminal
 
 import android.content.Context
 import com.rk.libcommons.alpineHomeDir
@@ -7,9 +7,9 @@ import com.rk.libcommons.createFileIfNot
 import com.rk.libcommons.localBinDir
 import com.rk.libcommons.localDir
 import com.rk.libcommons.localLibDir
-import com.rk.terminal.App.Companion.getTempDir
-import com.rk.terminal.BuildConfig
-import com.rk.terminal.ui.screens.settings.WorkingMode
+import com.kosh.shell.App.Companion.getTempDir
+import com.kosh.shell.BuildConfig
+import com.kosh.shell.ui.screens.settings.WorkingMode
 import com.termux.terminal.TerminalEmulator
 import com.termux.terminal.TerminalSession
 import com.termux.terminal.TerminalSessionClient

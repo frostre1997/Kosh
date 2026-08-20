@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.screens.terminal
+package com.kosh.shell.ui.screens.terminal
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
@@ -7,7 +7,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.rk.terminal.service.SessionService
+import com.kosh.shell.service.SessionService
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

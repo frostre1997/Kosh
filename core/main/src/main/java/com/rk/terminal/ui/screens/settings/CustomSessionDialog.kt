@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.screens.settings
+package com.kosh.shell.ui.screens.settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

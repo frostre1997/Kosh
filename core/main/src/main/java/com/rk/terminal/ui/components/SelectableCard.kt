@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.components
+package com.kosh.shell.ui.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Column

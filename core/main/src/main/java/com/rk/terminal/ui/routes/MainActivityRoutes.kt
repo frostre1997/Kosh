@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.routes
+package com.kosh.shell.ui.routes
 
 sealed class MainActivityRoutes(val route: String) {
     data object Settings : MainActivityRoutes("settings")

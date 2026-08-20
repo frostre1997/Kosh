@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.theme
+package com.kosh.shell.ui.theme
 
 import android.app.Activity
 import android.os.Build

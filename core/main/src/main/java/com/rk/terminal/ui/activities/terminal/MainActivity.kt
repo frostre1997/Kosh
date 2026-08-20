@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.activities.terminal
+package com.kosh.shell.ui.activities.terminal
 
 import android.content.pm.PackageManager
 import android.graphics.Rect
@@ -21,10 +21,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.rk.terminal.ui.navHosts.MainActivityNavHost
-import com.rk.terminal.ui.routes.MainActivityRoutes
-import com.rk.terminal.ui.screens.terminal.TerminalViewModel
-import com.rk.terminal.ui.theme.KarbonTheme
+import com.kosh.shell.ui.navHosts.MainActivityNavHost
+import com.kosh.shell.ui.routes.MainActivityRoutes
+import com.kosh.shell.ui.screens.terminal.TerminalViewModel
+import com.kosh.shell.ui.theme.KarbonTheme
 
 class MainActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()

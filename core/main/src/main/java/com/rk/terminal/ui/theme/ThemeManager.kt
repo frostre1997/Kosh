@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.theme
+package com.kosh.shell.ui.theme
 
 import android.app.Activity
 import android.content.Context
@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.color.DynamicColors
 import com.rk.libcommons.isDarkMode
 import com.rk.settings.Settings
-import com.rk.terminal.R
+import com.kosh.shell.R
 
 /**
  * A basic helper for applying the correct theme in the app. it manage XML Theme.

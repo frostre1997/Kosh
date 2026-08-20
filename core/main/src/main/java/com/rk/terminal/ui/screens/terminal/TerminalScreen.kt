@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.screens.terminal
+package com.kosh.shell.ui.screens.terminal
 
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
@@ -30,12 +30,12 @@ import androidx.navigation.NavController
 import com.rk.components.compose.preferences.base.PreferenceGroup
 import com.rk.libcommons.child
 import com.rk.resources.strings
-import com.rk.terminal.ui.activities.terminal.MainActivity
-import com.rk.terminal.ui.activities.terminal.MainViewModel
-import com.rk.terminal.ui.components.SetStatusBarTextColor
-import com.rk.terminal.ui.screens.settings.SettingsCard
-import com.rk.terminal.ui.screens.settings.WorkingMode
-import com.rk.terminal.ui.screens.terminal.virtualkeys.VirtualKeysListener
+import com.kosh.shell.ui.activities.terminal.MainActivity
+import com.kosh.shell.ui.activities.terminal.MainViewModel
+import com.kosh.shell.ui.components.SetStatusBarTextColor
+import com.kosh.shell.ui.screens.settings.SettingsCard
+import com.kosh.shell.ui.screens.settings.WorkingMode
+import com.kosh.shell.ui.screens.terminal.virtualkeys.VirtualKeysListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

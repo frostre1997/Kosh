@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.screens.terminal
+package com.kosh.shell.ui.screens.terminal
 
 import android.content.Context
 import android.graphics.Typeface
@@ -11,11 +11,11 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.ViewModel
 import com.google.android.material.R
 import com.rk.settings.Settings
-import com.rk.terminal.service.SessionService
-import com.rk.terminal.ui.activities.terminal.MainActivity
-import com.rk.terminal.ui.screens.settings.WorkingMode
-import com.rk.terminal.ui.screens.terminal.virtualkeys.VirtualKeysListener
-import com.rk.terminal.ui.screens.terminal.virtualkeys.VirtualKeysView
+import com.kosh.shell.service.SessionService
+import com.kosh.shell.ui.activities.terminal.MainActivity
+import com.kosh.shell.ui.screens.settings.WorkingMode
+import com.kosh.shell.ui.screens.terminal.virtualkeys.VirtualKeysListener
+import com.kosh.shell.ui.screens.terminal.virtualkeys.VirtualKeysView
 import com.termux.view.TerminalView
 import java.lang.ref.WeakReference
 

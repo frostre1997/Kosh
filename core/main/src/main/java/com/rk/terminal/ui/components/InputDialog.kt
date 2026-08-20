@@ -1,4 +1,4 @@
-package com.rk.terminal.ui.components
+package com.kosh.shell.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
