@@ -1,4 +1,5 @@
 package com.rk.terminal.ui.screens.terminal
+import java.io.FileOutputStream
 
 import android.content.Context
 import com.rk.libcommons.alpineHomeDir
@@ -41,6 +42,23 @@ object MkSession {
             val useChroot = Rootfs.execMode.value == ExecMode.CHROOT
 
             val initFile: File = localBinDir().child("init-host")
+    private fun extractBinary(context: Context, assetName: String): File {
+        val targetFile = File(context.filesDir, assetName)
+        if (!targetFile.exists()) {
+            try {
+                context.assets.open(assetName).use { input ->
+                    FileOutputStream(targetFile).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+                targetFile.setExecutable(true)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        return targetFile
+    }
+
             if (initFile.exists().not()) {
                 initFile.createFileIfNot()
                 assets.open("init-host.sh").bufferedReader().use { it.readText() }.let {
@@ -49,6 +67,23 @@ object MkSession {
             }
 
             val initChrootFile: File = localBinDir().child("init-host-chroot")
+    private fun extractBinary(context: Context, assetName: String): File {
+        val targetFile = File(context.filesDir, assetName)
+        if (!targetFile.exists()) {
+            try {
+                context.assets.open(assetName).use { input ->
+                    FileOutputStream(targetFile).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+                targetFile.setExecutable(true)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        return targetFile
+    }
+
             if (useChroot && initChrootFile.exists().not()) {
                 initChrootFile.createFileIfNot()
                 assets.open("init-host-chroot.sh").bufferedReader().use { it.readText() }.let {
@@ -57,6 +92,23 @@ object MkSession {
             }
 
             localBinDir().child("init").apply {
+    private fun extractBinary(context: Context, assetName: String): File {
+        val targetFile = File(context.filesDir, assetName)
+        if (!targetFile.exists()) {
+            try {
+                context.assets.open(assetName).use { input ->
+                    FileOutputStream(targetFile).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+                targetFile.setExecutable(true)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        return targetFile
+    }
+
                 if (exists().not()) {
                     createFileIfNot()
                     assets.open("init.sh").bufferedReader().use { it.readText() }.let {
@@ -66,13 +118,47 @@ object MkSession {
             }
 
             val env = mutableListOf(
-                "PATH=${System.getenv("PATH") ?: "/system/bin:/system/xbin"}:/sbin:${localBinDir().absolutePath}",
+                "PATH=${System.getenv("PATH") ?: "/system/bin:/system/xbin"}:/sbin:${localBinDir().absolutePath}:$binDir",
+    private fun extractBinary(context: Context, assetName: String): File {
+        val targetFile = File(context.filesDir, assetName)
+        if (!targetFile.exists()) {
+            try {
+                context.assets.open(assetName).use { input ->
+                    FileOutputStream(targetFile).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+                targetFile.setExecutable(true)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        return targetFile
+    }
+
                 "HOME=/sdcard",
                 "PUBLIC_HOME=${getExternalFilesDir(null)?.absolutePath}",
                 "COLORTERM=truecolor",
                 "TERM=xterm-256color",
                 "LANG=C.UTF-8",
                 "BIN=${localBinDir()}",
+    private fun extractBinary(context: Context, assetName: String): File {
+        val targetFile = File(context.filesDir, assetName)
+        if (!targetFile.exists()) {
+            try {
+                context.assets.open(assetName).use { input ->
+                    FileOutputStream(targetFile).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+                targetFile.setExecutable(true)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        return targetFile
+    }
+
                 "DEBUG=${BuildConfig.DEBUG}",
                 "PREFIX=${filesDir.parentFile!!.path}",
                 "LD_LIBRARY_PATH=${localLibDir().absolutePath}",
