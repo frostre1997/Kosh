@@ -42,6 +42,22 @@ object MkSession {
             val useChroot = Rootfs.execMode.value == ExecMode.CHROOT
 
             val initFile: File = localBinDir().child("init-host")
+        val alpineRoot = extractAlpineRootfs(context)
+        val alpineRoot = extractAlpineRootfs(context)
+    private fun extractAlpineRootfs(context: Context): File {
+        val rootfsDir = File(context.filesDir, "alpine-rootfs")
+        if (!rootfsDir.exists()) {
+            rootfsDir.mkdirs()
+            context.assets.open("alpine-rootfs.tar.gz").use { input ->
+                val tempFile = File(context.cacheDir, "alpine-rootfs.tar.gz")
+                tempFile.outputStream().use { output -> input.copyTo(output) }
+                Runtime.getRuntime().exec(arrayOf("tar", "-xzf", tempFile.absolutePath, "-C", rootfsDir.absolutePath)).waitFor()
+                tempFile.delete()
+            }
+        }
+        return rootfsDir
+    }
+
     private fun extractBinary(context: Context, assetName: String): File {
         val targetFile = File(context.filesDir, assetName)
         if (!targetFile.exists()) {
@@ -67,6 +83,22 @@ object MkSession {
             }
 
             val initChrootFile: File = localBinDir().child("init-host-chroot")
+        val alpineRoot = extractAlpineRootfs(context)
+        val alpineRoot = extractAlpineRootfs(context)
+    private fun extractAlpineRootfs(context: Context): File {
+        val rootfsDir = File(context.filesDir, "alpine-rootfs")
+        if (!rootfsDir.exists()) {
+            rootfsDir.mkdirs()
+            context.assets.open("alpine-rootfs.tar.gz").use { input ->
+                val tempFile = File(context.cacheDir, "alpine-rootfs.tar.gz")
+                tempFile.outputStream().use { output -> input.copyTo(output) }
+                Runtime.getRuntime().exec(arrayOf("tar", "-xzf", tempFile.absolutePath, "-C", rootfsDir.absolutePath)).waitFor()
+                tempFile.delete()
+            }
+        }
+        return rootfsDir
+    }
+
     private fun extractBinary(context: Context, assetName: String): File {
         val targetFile = File(context.filesDir, assetName)
         if (!targetFile.exists()) {
@@ -92,6 +124,22 @@ object MkSession {
             }
 
             localBinDir().child("init").apply {
+        val alpineRoot = extractAlpineRootfs(context)
+        val alpineRoot = extractAlpineRootfs(context)
+    private fun extractAlpineRootfs(context: Context): File {
+        val rootfsDir = File(context.filesDir, "alpine-rootfs")
+        if (!rootfsDir.exists()) {
+            rootfsDir.mkdirs()
+            context.assets.open("alpine-rootfs.tar.gz").use { input ->
+                val tempFile = File(context.cacheDir, "alpine-rootfs.tar.gz")
+                tempFile.outputStream().use { output -> input.copyTo(output) }
+                Runtime.getRuntime().exec(arrayOf("tar", "-xzf", tempFile.absolutePath, "-C", rootfsDir.absolutePath)).waitFor()
+                tempFile.delete()
+            }
+        }
+        return rootfsDir
+    }
+
     private fun extractBinary(context: Context, assetName: String): File {
         val targetFile = File(context.filesDir, assetName)
         if (!targetFile.exists()) {
@@ -119,6 +167,22 @@ object MkSession {
 
             val env = mutableListOf(
                 "PATH=${System.getenv("PATH") ?: "/system/bin:/system/xbin"}:/sbin:${localBinDir().absolutePath}:$binDir",
+        val alpineRoot = extractAlpineRootfs(context)
+        val alpineRoot = extractAlpineRootfs(context)
+    private fun extractAlpineRootfs(context: Context): File {
+        val rootfsDir = File(context.filesDir, "alpine-rootfs")
+        if (!rootfsDir.exists()) {
+            rootfsDir.mkdirs()
+            context.assets.open("alpine-rootfs.tar.gz").use { input ->
+                val tempFile = File(context.cacheDir, "alpine-rootfs.tar.gz")
+                tempFile.outputStream().use { output -> input.copyTo(output) }
+                Runtime.getRuntime().exec(arrayOf("tar", "-xzf", tempFile.absolutePath, "-C", rootfsDir.absolutePath)).waitFor()
+                tempFile.delete()
+            }
+        }
+        return rootfsDir
+    }
+
     private fun extractBinary(context: Context, assetName: String): File {
         val targetFile = File(context.filesDir, assetName)
         if (!targetFile.exists()) {
@@ -142,6 +206,22 @@ object MkSession {
                 "TERM=xterm-256color",
                 "LANG=C.UTF-8",
                 "BIN=${localBinDir()}",
+        val alpineRoot = extractAlpineRootfs(context)
+        val alpineRoot = extractAlpineRootfs(context)
+    private fun extractAlpineRootfs(context: Context): File {
+        val rootfsDir = File(context.filesDir, "alpine-rootfs")
+        if (!rootfsDir.exists()) {
+            rootfsDir.mkdirs()
+            context.assets.open("alpine-rootfs.tar.gz").use { input ->
+                val tempFile = File(context.cacheDir, "alpine-rootfs.tar.gz")
+                tempFile.outputStream().use { output -> input.copyTo(output) }
+                Runtime.getRuntime().exec(arrayOf("tar", "-xzf", tempFile.absolutePath, "-C", rootfsDir.absolutePath)).waitFor()
+                tempFile.delete()
+            }
+        }
+        return rootfsDir
+    }
+
     private fun extractBinary(context: Context, assetName: String): File {
         val targetFile = File(context.filesDir, assetName)
         if (!targetFile.exists()) {
