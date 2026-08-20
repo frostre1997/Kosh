@@ -148,8 +148,8 @@ fun TerminalScreen(
                         sessionBinder = sessionBinder,
                         modifier = Modifier.fillMaxSize()
                             .imePadding()
-                            .navigationBarsPadding()
-                            .padding(top = topPadding)
+                            
+                            
                             .fillMaxSize()
                     )
                 }
