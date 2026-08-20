@@ -1,13 +1,28 @@
 #!/system/bin/sh
 
-# ─── Setup prompt and storage commands ────────────────────────────
+# ─── Setup prompt, storage commands, and copy pkg ────────────────
 if [ ! -f /root/.profile ]; then
-    # Use the real path (not symlink) as HOME
+    # Use the real storage path (not symlink)
     echo "export HOME=/storage/emulated/0" > /root/.profile
     echo "export PS1='localhost@hostname:\\w# '" >> /root/.profile
 
-    # ─── Create a `storageinfo` command ────────────────────────────
+    # ─── Create bin directory ──────────────────────────────────────
     mkdir -p /root/bin
+
+    # ─── Copy `pkg` from assets (if available) ────────────────────
+    if [ -f /data/data/com.kosh.shell/files/pkg.sh ]; then
+        cp /data/data/com.kosh.shell/files/pkg.sh /root/bin/pkg
+        chmod +x /root/bin/pkg
+    else
+        # Fallback: warn user
+        cat > /root/bin/pkg << 'FALLBACK'
+#!/system/bin/sh
+echo "pkg: asset not found. Please ensure pkg.sh is bundled."
+FALLBACK
+        chmod +x /root/bin/pkg
+    fi
+
+    # ─── Create `storageinfo` command ──────────────────────────────
     cat > /root/bin/storageinfo << 'SCRIPT'
 #!/system/bin/sh
 echo "=== Primary Storage (internal) ==="
@@ -27,12 +42,12 @@ for MOUNT in $(mount | grep -E "/storage/|/mnt/media_rw" | awk '{print $3}' | so
     fi
 done
 if ! mount | grep -q -E "/storage/[^/]+/[0-9a-zA-Z-]+"; then
-    echo "  No external SD card found."
+    echo "  No sdcard found."
 fi
 SCRIPT
     chmod +x /root/bin/storageinfo
 
-    # ─── Also keep the old `storage` command for quick free space ──
+    # ─── Create `storage` command (quick free space) ──────────────
     cat > /root/bin/storage << 'SCRIPT'
 #!/system/bin/sh
 echo "=== Internal Storage (/storage/emulated/0) ==="
@@ -43,7 +58,7 @@ SDCARD_MOUNT=$(mount | grep "/storage/" | grep -v "emulated" | awk '{print $3}')
 if [ -n "$SDCARD_MOUNT" ]; then
     df -h "$SDCARD_MOUNT" | grep -v Filesystem
 else
-    echo "No external SD card found."
+    echo "No sdcard found."
 fi
 SCRIPT
     chmod +x /root/bin/storage
@@ -53,7 +68,7 @@ SCRIPT
 fi
 
 # ─── Proot command ──────────────────────────────────────────────────
-# Start directly in the real path, not the symlink
+# Force start in /storage/emulated/0 using -w and -c with cd
 proot -r "$ALPINE_ROOT" \
      -b /sdcard \
      -b /storage/emulated/0 \
