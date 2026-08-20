@@ -1,66 +1,62 @@
-ALPINE_DIR=$PREFIX/local/alpine
+#!/system/bin/sh
 
-mkdir -p $ALPINE_DIR
+# ─── Setup prompt and storage commands ────────────────────────────
+if [ ! -f /root/.profile ]; then
+    # Use the real path (not symlink) as HOME
+    echo "export HOME=/storage/emulated/0" > /root/.profile
+    echo "export PS1='localhost@hostname:\\w# '" >> /root/.profile
 
-if [ -z "$(ls -A "$ALPINE_DIR" | grep -vE '^(root|tmp)$')" ]; then
-    tar -xf "$PREFIX/files/alpine.tar.gz" -C "$ALPINE_DIR"
-fi
-
-ARGS="--kill-on-exit"
-ARGS="$ARGS -w /"
-
-for system_mnt in /apex /odm /product /system /system_ext /vendor \
- /linkerconfig/ld.config.txt \
- /linkerconfig/com.android.art/ld.config.txt \
- /plat_property_contexts /property_contexts; do
-
- if [ -e "$system_mnt" ]; then
-  system_mnt=$(realpath "$system_mnt")
-  ARGS="$ARGS -b ${system_mnt}"
- fi
+    # ─── Create a `storageinfo` command ────────────────────────────
+    mkdir -p /root/bin
+    cat > /root/bin/storageinfo << 'SCRIPT'
+#!/system/bin/sh
+echo "=== Primary Storage (internal) ==="
+PRIMARY=$(readlink -f /sdcard 2>/dev/null || echo "/storage/emulated/0")
+echo "  Real path: /storage/emulated/0"
+echo "  Symlink: /sdcard -> $PRIMARY"
+echo "  Usage: $(df -h /storage/emulated/0 2>/dev/null | grep -v Filesystem | awk '{print $3 " used, " $4 " free"}')"
+echo ""
+echo "=== All External Storage Volumes ==="
+for MOUNT in $(mount | grep -E "/storage/|/mnt/media_rw" | awk '{print $3}' | sort -u); do
+    if [ "$MOUNT" = "/storage/emulated" ] || [ "$MOUNT" = "/storage/emulated/0" ]; then
+        continue
+    fi
+    if [ -d "$MOUNT" ]; then
+        SIZE=$(df -h "$MOUNT" 2>/dev/null | grep -v Filesystem | awk '{print $2 " total, " $3 " used, " $4 " free"}')
+        echo "  $MOUNT: $SIZE"
+    fi
 done
-unset system_mnt
+if ! mount | grep -q -E "/storage/[^/]+/[0-9a-zA-Z-]+"; then
+    echo "  No external SD card found."
+fi
+SCRIPT
+    chmod +x /root/bin/storageinfo
 
-ARGS="$ARGS -b /sdcard"
-ARGS="$ARGS -b /storage"
-ARGS="$ARGS -b /dev"
-ARGS="$ARGS -b /data"
-ARGS="$ARGS -b /dev/urandom:/dev/random"
-ARGS="$ARGS -b /proc"
-ARGS="$ARGS -b $PREFIX"
-ARGS="$ARGS -b $PREFIX/local/stat:/proc/stat"
-ARGS="$ARGS -b $PREFIX/local/vmstat:/proc/vmstat"
+    # ─── Also keep the old `storage` command for quick free space ──
+    cat > /root/bin/storage << 'SCRIPT'
+#!/system/bin/sh
+echo "=== Internal Storage (/storage/emulated/0) ==="
+df -h /storage/emulated/0 | grep -v Filesystem
+echo ""
+echo "=== External SD Card (if present) ==="
+SDCARD_MOUNT=$(mount | grep "/storage/" | grep -v "emulated" | awk '{print $3}')
+if [ -n "$SDCARD_MOUNT" ]; then
+    df -h "$SDCARD_MOUNT" | grep -v Filesystem
+else
+    echo "No external SD card found."
+fi
+SCRIPT
+    chmod +x /root/bin/storage
 
-if [ -e "/proc/self/fd" ]; then
-  ARGS="$ARGS -b /proc/self/fd:/dev/fd"
+    # Add /root/bin to PATH
+    echo 'export PATH="/root/bin:$PATH"' >> /root/.profile
 fi
 
-if [ -e "/proc/self/fd/0" ]; then
-  ARGS="$ARGS -b /proc/self/fd/0:/dev/stdin"
-fi
-
-if [ -e "/proc/self/fd/1" ]; then
-  ARGS="$ARGS -b /proc/self/fd/1:/dev/stdout"
-fi
-
-if [ -e "/proc/self/fd/2" ]; then
-  ARGS="$ARGS -b /proc/self/fd/2:/dev/stderr"
-fi
-
-
-ARGS="$ARGS -b $PREFIX"
-ARGS="$ARGS -b /sys"
-
-if [ ! -d "$PREFIX/local/alpine/tmp" ]; then
- mkdir -p "$PREFIX/local/alpine/tmp"
- chmod 1777 "$PREFIX/local/alpine/tmp"
-fi
-ARGS="$ARGS -b $PREFIX/local/alpine/tmp:/dev/shm"
-
-ARGS="$ARGS -r $PREFIX/local/alpine"
-ARGS="$ARGS -0"
-ARGS="$ARGS --link2symlink"
-ARGS="$ARGS --sysvipc"
-ARGS="$ARGS -L"
-
-$PROOT $ARGS sh $PREFIX/local/bin/init "$@"
+# ─── Proot command ──────────────────────────────────────────────────
+# Start directly in the real path, not the symlink
+proot -r "$ALPINE_ROOT" \
+     -b /sdcard \
+     -b /storage/emulated/0 \
+     -b /data \
+     -b /proc \
+     /bin/busybox sh -c "cd /storage/emulated/0; exec /bin/busybox sh -l"
