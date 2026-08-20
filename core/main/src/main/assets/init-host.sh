@@ -2,14 +2,14 @@
 export HOME=/storage/emulated/0
 export PS1='localhost@hostname:\w# '
 cd /storage/emulated/0
-mkdir -p /root/bin
-export PATH=/root/bin:$PATH
-echo 'export PATH=/root/bin:$PATH' >> /root/.profile
-echo "150.1.01.0" > /root/.kosh_version
+mkdir -p /data/data/com.kosh.shell.dev/files/bin
+export PATH=/data/data/com.kosh.shell.dev/files/bin:$PATH
+echo 'export PATH=/data/data/com.kosh.shell.dev/files/bin:$PATH' >> /data/data/com.kosh.shell.dev/files/.profile
+echo "150.1.01.0" > /data/data/com.kosh.shell.dev/files/.kosh_version
 
-cat > /root/bin/k << 'SCRIPT'
+cat > /data/data/com.kosh.shell.dev/files/bin/k << 'SCRIPT'
 #!/system/bin/sh
-VERSION=$(cat /root/.kosh_version 2>/dev/null || echo "150.1.01.0")
+VERSION=$(cat /data/data/com.kosh.shell.dev/files/.kosh_version 2>/dev/null || echo "150.1.01.0")
 show_help() {
     cat << HELP
 Kosh v$VERSION
@@ -25,18 +25,18 @@ HELP
 }
 case "$1" in
     --h) show_help ;;
-    --st) /root/bin/storage ;;
-    --uptm) /root/bin/uptime ;;
-    --dinf) /root/bin/deviceinfo ;;
-    --ip) /root/bin/ipinfo ;;
-    --dns) /root/bin/dnsinfo ;;
-    --update) /root/bin/update ;;
+    --st) /data/data/com.kosh.shell.dev/files/bin/storage ;;
+    --uptm) /data/data/com.kosh.shell.dev/files/bin/uptime ;;
+    --dinf) /data/data/com.kosh.shell.dev/files/bin/deviceinfo ;;
+    --ip) /data/data/com.kosh.shell.dev/files/bin/ipinfo ;;
+    --dns) /data/data/com.kosh.shell.dev/files/bin/dnsinfo ;;
+    --update) /data/data/com.kosh.shell.dev/files/bin/update ;;
     *) show_help ;;
 esac
 SCRIPT
-chmod +x /root/bin/k
+chmod +x /data/data/com.kosh.shell.dev/files/bin/k
 
-cat > /root/bin/storage << 'SCRIPT'
+cat > /data/data/com.kosh.shell.dev/files/bin/storage << 'SCRIPT'
 #!/system/bin/sh
 echo "=== Internal Storage (/storage/emulated/0) ==="
 df -h /storage/emulated/0 | grep -v Filesystem | awk '{print "Size: "$2 "  Used: "$3 "  Avail: "$4 "  Use%: "$5}'
@@ -49,9 +49,9 @@ else
     echo "No external SD card found."
 fi
 SCRIPT
-chmod +x /root/bin/storage
+chmod +x /data/data/com.kosh.shell.dev/files/bin/storage
 
-cat > /root/bin/uptime << 'SCRIPT'
+cat > /data/data/com.kosh.shell.dev/files/bin/uptime << 'SCRIPT'
 #!/system/bin/sh
 uptime_seconds=$(cat /proc/uptime | cut -d. -f1)
 days=$((uptime_seconds / 86400))
@@ -59,41 +59,41 @@ hours=$(( (uptime_seconds % 86400) / 3600 ))
 mins=$(( (uptime_seconds % 3600) / 60 ))
 echo "Uptime: ${days}d ${hours}h ${mins}m"
 SCRIPT
-chmod +x /root/bin/uptime
+chmod +x /data/data/com.kosh.shell.dev/files/bin/uptime
 
-cat > /root/bin/deviceinfo << 'SCRIPT'
+cat > /data/data/com.kosh.shell.dev/files/bin/deviceinfo << 'SCRIPT'
 #!/system/bin/sh
 echo "Device: $(getprop ro.product.model 2>/dev/null || echo "Unknown")"
 echo "Android: $(getprop ro.build.version.release 2>/dev/null || echo "Unknown") (API $(getprop ro.build.version.sdk 2>/dev/null || echo "?"))"
 echo "Kernel: $(uname -r 2>/dev/null || echo "Unknown")"
 echo "Architecture: $(uname -m 2>/dev/null || echo "Unknown")"
 SCRIPT
-chmod +x /root/bin/deviceinfo
+chmod +x /data/data/com.kosh.shell.dev/files/bin/deviceinfo
 
-cat > /root/bin/ipinfo << 'SCRIPT'
+cat > /data/data/com.kosh.shell.dev/files/bin/ipinfo << 'SCRIPT'
 #!/system/bin/sh
 echo "Wi‑Fi IP:"
 ip addr show wlan0 2>/dev/null | grep "inet " | awk '{print $2}' | cut -d/ -f1 || echo "No Wi‑Fi IP"
 echo "Mobile IP:"
 ip addr show rmnet0 2>/dev/null | grep "inet " | awk '{print $2}' | cut -d/ -f1 || echo "No mobile IP"
 SCRIPT
-chmod +x /root/bin/ipinfo
+chmod +x /data/data/com.kosh.shell.dev/files/bin/ipinfo
 
-cat > /root/bin/dnsinfo << 'SCRIPT'
+cat > /data/data/com.kosh.shell.dev/files/bin/dnsinfo << 'SCRIPT'
 #!/system/bin/sh
 echo "DNS Servers:"
 cat /etc/resolv.conf 2>/dev/null | grep nameserver | awk '{print $2}' || echo "No DNS configuration found."
 SCRIPT
-chmod +x /root/bin/dnsinfo
+chmod +x /data/data/com.kosh.shell.dev/files/bin/dnsinfo
 
-cat > /root/bin/update << 'SCRIPT'
+cat > /data/data/com.kosh.shell.dev/files/bin/update << 'SCRIPT'
 #!/system/bin/sh
 echo "Checking for updates..."
 LATEST=$(curl -s https://api.github.com/repos/frostre1997/Kosh/releases/latest | grep -o '"tag_name": "[^"]*"' | cut -d'"' -f4)
 if [ -n "$LATEST" ]; then
     echo "Latest version: $LATEST"
-    echo "Current version: $(cat /root/.kosh_version)"
-    if [ "$LATEST" != "$(cat /root/.kosh_version)" ]; then
+    echo "Current version: $(cat /data/data/com.kosh.shell.dev/files/.kosh_version)"
+    if [ "$LATEST" != "$(cat /data/data/com.kosh.shell.dev/files/.kosh_version)" ]; then
         echo "A new version is available. Download from:"
         echo "https://github.com/frostre1997/Kosh/releases"
     else
@@ -103,11 +103,11 @@ else
     echo "Could not check for updates."
 fi
 SCRIPT
-chmod +x /root/bin/update
+chmod +x /data/data/com.kosh.shell.dev/files/bin/update
 
-cat > /root/bin/!! << 'SCRIPT'
+cat > /data/data/com.kosh.shell.dev/files/bin/!! << 'SCRIPT'
 #!/system/bin/sh
-LAST=$(tail -n 2 /root/.ash_history | head -n 1 | sed 's/^[ \t]*//')
+LAST=$(tail -n 2 /data/data/com.kosh.shell.dev/files/.ash_history | head -n 1 | sed 's/^[ \t]*//')
 if [ -n "$LAST" ]; then
     echo "$LAST"
     eval "$LAST"
@@ -115,16 +115,16 @@ else
     echo "No previous command."
 fi
 SCRIPT
-chmod +x /root/bin/!!
+chmod +x /data/data/com.kosh.shell.dev/files/bin/!!
 
-cat > /root/bin/!!! << 'SCRIPT'
+cat > /data/data/com.kosh.shell.dev/files/bin/!!! << 'SCRIPT'
 #!/system/bin/sh
 echo "Last 10 commands:"
-tail -n 10 /root/.ash_history | cat -n
+tail -n 10 /data/data/com.kosh.shell.dev/files/.ash_history | cat -n
 SCRIPT
-chmod +x /root/bin/!!!
+chmod +x /data/data/com.kosh.shell.dev/files/bin/!!!
 
-cat > /root/bin/bg << 'SCRIPT'
+cat > /data/data/com.kosh.shell.dev/files/bin/bg << 'SCRIPT'
 #!/system/bin/sh
 if [ -z "$1" ]; then
     echo "Usage: bg <command> [args...]"
@@ -133,25 +133,25 @@ fi
 nohup "$@" </dev/null >/dev/null 2>&1 &
 echo "Background job started: $!"
 SCRIPT
-chmod +x /root/bin/bg
+chmod +x /data/data/com.kosh.shell.dev/files/bin/bg
 
-cat > /root/bin/! << 'SCRIPT'
+cat > /data/data/com.kosh.shell.dev/files/bin/! << 'SCRIPT'
 #!/system/bin/sh
 echo "!"
 SCRIPT
-chmod +x /root/bin/!
+chmod +x /data/data/com.kosh.shell.dev/files/bin/!
 
-echo "alias sp='suspend'" >> /root/.profile
-echo "alias rs='resume'" >> /root/.profile
-echo "alias help='k --h'" >> /root/.profile
-echo "alias storage='k --st'" >> /root/.profile
-echo "alias uptime='k --uptm'" >> /root/.profile
-echo "alias device='k --dinf'" >> /root/.profile
-echo "alias ip='k --ip'" >> /root/.profile
-echo "alias dns='k --dns'" >> /root/.profile
+echo "alias sp='suspend'" >> /data/data/com.kosh.shell.dev/files/.profile
+echo "alias rs='resume'" >> /data/data/com.kosh.shell.dev/files/.profile
+echo "alias help='k --h'" >> /data/data/com.kosh.shell.dev/files/.profile
+echo "alias storage='k --st'" >> /data/data/com.kosh.shell.dev/files/.profile
+echo "alias uptime='k --uptm'" >> /data/data/com.kosh.shell.dev/files/.profile
+echo "alias device='k --dinf'" >> /data/data/com.kosh.shell.dev/files/.profile
+echo "alias ip='k --ip'" >> /data/data/com.kosh.shell.dev/files/.profile
+echo "alias dns='k --dns'" >> /data/data/com.kosh.shell.dev/files/.profile
 
 # ─── Wakelock script using broadcast ─────────────────────────────
-cat > /root/bin/wakelock << 'SCRIPT'
+cat > /data/data/com.kosh.shell.dev/files/bin/wakelock << 'SCRIPT'
 #!/system/bin/sh
 case "$1" in
     -y|--yes)
@@ -178,4 +178,4 @@ case "$1" in
         ;;
 esac
 SCRIPT
-chmod +x /root/bin/wakelock
+chmod +x /data/data/com.kosh.shell.dev/files/bin/wakelock
