@@ -14,44 +14,7 @@ import com.termux.terminal.TerminalEmulator
 import com.termux.terminal.TerminalSession
 import com.termux.terminal.TerminalSessionClient
 import java.io.File
-nprivate fun extractAlpineRootfs(context: Context): File {
-    val rootfsDir = File(context.filesDir, "alpine-rootfs")
-    val mProcId = TermExec.createSubprocess(mTermFd, arg0, args, env)
-    if (!rootfsDir.exists()) {
-        rootfsDir.mkdirs()
-        try {
-            context.assets.open("alpine-rootfs.tar.gz").use { input ->
-                val tempFile = File(context.cacheDir, "alpine-rootfs.tar.gz")
-                tempFile.outputStream().use { output -> input.copyTo(output) }
-                Runtime.getRuntime().exec(arrayOf("tar", "-xzf", tempFile.absolutePath, "-C", rootfsDir.absolutePath)).waitFor()
-                tempFile.delete()
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-    return rootfsDir
-}
-
 import java.io.FileOutputStream
-nprivate fun extractAlpineRootfs(context: Context): File {
-    val rootfsDir = File(context.filesDir, "alpine-rootfs")
-    if (!rootfsDir.exists()) {
-        rootfsDir.mkdirs()
-        try {
-            context.assets.open("alpine-rootfs.tar.gz").use { input ->
-                val tempFile = File(context.cacheDir, "alpine-rootfs.tar.gz")
-                tempFile.outputStream().use { output -> input.copyTo(output) }
-                Runtime.getRuntime().exec(arrayOf("tar", "-xzf", tempFile.absolutePath, "-C", rootfsDir.absolutePath)).waitFor()
-                tempFile.delete()
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-    return rootfsDir
-}
-
 
 data class PendingCommand(
     val shell: String,
@@ -221,15 +184,13 @@ object MkSession {
                 pendingCommand.shell
             }
 
-            return ShellTermSession(
+            return TerminalSession(
                 shell,
                 workingDir,
                 args,
                 env.toTypedArray(),
                 TerminalEmulator.DEFAULT_TERMINAL_TRANSCRIPT_ROWS,
                 sessionClient,
-                context,
-                mProcId
             )
         }
     }
