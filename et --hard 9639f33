@@ -1,0 +1,31 @@
+[33ma26bda0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Rename app to Kosh and replace Terminal with Shell in UI
+[33mfef2762[m Change app name and update debug settings
+[33mb1d9de7[m rebrand
+[33ma9603e2[m rebrand to com.kosh.shell
+[33m2a41a37[m Enhance init-host.sh with storage commands and pkg copy
+[33m1353d92[m Refactor init-host.sh for improved storage handling
+[33m8290530[m Bind /sdcard, /storage/emulated/0, /data, /proc inside Alpine
+[33m48cf319[m Implement binary extraction and environment setup
+[33m7221420[m Add Alpine extraction and set default mode
+[33m143c6a6[m Replace MkSession.kt with Alpine extraction and default mode
+[33mb4ca270[m Bundle Alpine rootfs, extract on first run, set as default
+[33m9639f33[m Add BusyBox, Bash, Python, and pkg manager
+[33m9fe8090[m Force fullscreen with theme, post delay, and re-hide listener
+[33m1b4cb36[m Use universal Environment API for HOME path instead of hardcoded /storage/emulated/0
+[33m638db04[m Fullscreen fix, remove padding, set PATH fallback for yes
+[33mdac61f1[m Enhance MainActivity for immersive fullscreen experience
+[33m9f9fa2f[m Add missing imports for WindowManager and WindowCompat
+[33m4ad3075[m Fix onCreate syntax: remove enableEdgeToEdge and stray parentheses
+[33m5ad73e7[m Immersive fullscreen using bitwise OR syntax
+[33m61ad22f[m Immersive fullscreen: hide status and nav bars permanently
+[33me677938[m Immersive sticky fullscreen (bars stay hidden until swipe)
+[33m1f2004a[m Fix conflicting WindowManager imports
+[33m8c4c58e[m Programmatic fullscreen with FLAG_FULLSCREEN
+[33m3d9e05e[m Add MainActivity with fullscreen theme
+[33m545af88[m Fullscreen: hide system bars, terminal fills screen
+[33m38a602f[m Hide top bar for full-screen terminal (keep drawer accessible)
+[33m232cfb3[m Update repository in verifyDiff.sh script
+[33m628356a[m Rename workflow from 'Debug' to 'debug'
+[33m5e155dc[m Add GitHub Actions workflow for release process
+[33m63924d9[m Rename workflow to Debug and update build steps
+[33m7fc8586[m Initial commit: Kosh terminal
