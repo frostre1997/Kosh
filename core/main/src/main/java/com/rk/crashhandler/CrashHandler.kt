@@ -1,9 +1,9 @@
-package com.rk.crashhandler
+package com.kosh.shell.crashhandler
 
 import android.os.Looper
-import com.rk.libcommons.application
-import com.rk.libcommons.child
-import com.rk.libcommons.createFileIfNot
+import com.kosh.shell.libcommons.application
+import com.kosh.shell.libcommons.child
+import com.kosh.shell.libcommons.createFileIfNot
 import kotlin.system.exitProcess
 
 object CrashHandler : Thread.UncaughtExceptionHandler {

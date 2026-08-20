@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.rk.settings.Settings
+import com.kosh.shell.settings.Settings
 import com.kosh.shell.ui.activities.terminal.MainActivity
 import com.kosh.shell.ui.animations.NavigationAnimationTransitions
 import com.kosh.shell.ui.routes.MainActivityRoutes

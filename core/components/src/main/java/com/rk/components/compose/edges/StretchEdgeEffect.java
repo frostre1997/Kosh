@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.rk.components.compose.edges;
+package com.kosh.shell.components.compose.edges;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

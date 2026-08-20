@@ -10,7 +10,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.ViewModel
 import com.google.android.material.R
-import com.rk.settings.Settings
+import com.kosh.shell.settings.Settings
 import com.kosh.shell.service.SessionService
 import com.kosh.shell.ui.activities.terminal.MainActivity
 import com.kosh.shell.ui.screens.settings.WorkingMode

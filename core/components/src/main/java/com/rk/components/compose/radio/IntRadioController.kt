@@ -1,4 +1,4 @@
-package com.rk.components.compose.radio
+package com.kosh.shell.components.compose.radio
 
 
 import androidx.compose.foundation.clickable

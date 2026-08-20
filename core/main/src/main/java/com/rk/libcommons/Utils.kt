@@ -1,4 +1,4 @@
-package com.rk.libcommons
+package com.kosh.shell.libcommons
 
 import android.content.Context
 import android.content.res.Configuration
@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.annotation.StringRes
 import com.blankj.utilcode.util.ThreadUtils
-import com.rk.resources.getString
+import com.kosh.shell.resources.getString
 import com.kosh.shell.BuildConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi

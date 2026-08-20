@@ -35,8 +35,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.platform.LocalWindowInfo
-import com.rk.resources.strings
-import com.rk.settings.Settings
+import com.kosh.shell.resources.strings
+import com.kosh.shell.settings.Settings
 
 /**
  * Dialog that captures a keyboard shortcut combination from the user.

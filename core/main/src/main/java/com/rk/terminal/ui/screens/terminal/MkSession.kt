@@ -1,12 +1,12 @@
 package com.kosh.shell.ui.screens.terminal
 
 import android.content.Context
-import com.rk.libcommons.alpineHomeDir
-import com.rk.libcommons.child
-import com.rk.libcommons.createFileIfNot
-import com.rk.libcommons.localBinDir
-import com.rk.libcommons.localDir
-import com.rk.libcommons.localLibDir
+import com.kosh.shell.libcommons.alpineHomeDir
+import com.kosh.shell.libcommons.child
+import com.kosh.shell.libcommons.createFileIfNot
+import com.kosh.shell.libcommons.localBinDir
+import com.kosh.shell.libcommons.localDir
+import com.kosh.shell.libcommons.localLibDir
 import com.kosh.shell.App.Companion.getTempDir
 import com.kosh.shell.BuildConfig
 import com.kosh.shell.ui.screens.settings.WorkingMode

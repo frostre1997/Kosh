@@ -2,9 +2,9 @@ package com.kosh.shell.ui.screens.terminal
 
 import android.content.Context
 import androidx.compose.runtime.mutableStateOf
-import com.rk.libcommons.child
-import com.rk.libcommons.localDir
-import com.rk.settings.Settings
+import com.kosh.shell.libcommons.child
+import com.kosh.shell.libcommons.localDir
+import com.kosh.shell.settings.Settings
 import java.io.File
 
 enum class ExecMode(val value: Int) {

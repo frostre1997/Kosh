@@ -1,4 +1,4 @@
-package com.rk.components.compose.preferences.base
+package com.kosh.shell.components.compose.preferences.base
 
 /*
  * Copyright 2021, Lawnchair.
@@ -32,7 +32,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Velocity
-import com.rk.components.compose.edges.StretchEdgeEffect
+import com.kosh.shell.components.compose.edges.StretchEdgeEffect
 
 /**
  * Creates a custom overscroll effect based off the Android 12 "stretch" animation.

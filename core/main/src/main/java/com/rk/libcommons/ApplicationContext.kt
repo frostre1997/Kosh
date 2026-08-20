@@ -1,4 +1,4 @@
-package com.rk.libcommons
+package com.kosh.shell.libcommons
 
 import android.app.Activity
 import android.app.Application

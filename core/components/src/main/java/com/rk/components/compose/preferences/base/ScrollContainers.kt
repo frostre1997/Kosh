@@ -1,4 +1,4 @@
-package com.rk.components.compose.preferences.base
+package com.kosh.shell.components.compose.preferences.base
 
 /*
  * Copyright 2021, Lawnchair.
@@ -36,7 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.awaitCancellation
-import com.rk.components.compose.utils.addIf
+import com.kosh.shell.components.compose.utils.addIf
 
 @Composable
 fun PreferenceColumn(

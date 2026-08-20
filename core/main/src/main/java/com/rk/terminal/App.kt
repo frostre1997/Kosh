@@ -5,10 +5,10 @@ import android.content.Context
 import android.os.Build
 import android.os.StrictMode
 import com.github.anrwatchdog.ANRWatchDog
-import com.rk.libcommons.application
-import com.rk.resources.Res
+import com.kosh.shell.libcommons.application
+import com.kosh.shell.resources.Res
 import com.kosh.shell.ui.screens.terminal.TerminalUtils
-import com.rk.update.UpdateManager
+import com.kosh.shell.update.UpdateManager
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

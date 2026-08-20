@@ -7,7 +7,7 @@ plugins {
 
 
 android {
-    namespace = "com.rk.application"
+    namespace = "com.kosh.shell.application"
     compileSdk = 37
 
 

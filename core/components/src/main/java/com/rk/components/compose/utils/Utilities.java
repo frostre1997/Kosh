@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.rk.components.compose.utils;
+package com.kosh.shell.components.compose.utils;
 
 import android.os.Build;
 import static android.os.Build.VERSION_CODES;

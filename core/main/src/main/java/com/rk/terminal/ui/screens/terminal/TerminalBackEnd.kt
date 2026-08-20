@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.ClipboardUtils
 import com.blankj.utilcode.util.KeyboardUtils
-import com.rk.libcommons.child
-import com.rk.settings.Settings
+import com.kosh.shell.libcommons.child
+import com.kosh.shell.settings.Settings
 import com.kosh.shell.ui.activities.terminal.MainActivity
 import com.kosh.shell.ui.screens.terminal.virtualkeys.SpecialButton
 import com.termux.terminal.TerminalEmulator

@@ -1,4 +1,4 @@
-package com.rk.components.compose.utils
+package com.kosh.shell.components.compose.utils
 
 import androidx.compose.ui.Modifier
 

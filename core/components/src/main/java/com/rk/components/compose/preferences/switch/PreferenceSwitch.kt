@@ -1,4 +1,4 @@
-package com.rk.components.compose.preferences.switch
+package com.kosh.shell.components.compose.preferences.switch
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.rk.components.compose.preferences.base.PreferenceTemplate
+import com.kosh.shell.components.compose.preferences.base.PreferenceTemplate
 
 /**
  * A Preference that provides a two-state toggleable option.

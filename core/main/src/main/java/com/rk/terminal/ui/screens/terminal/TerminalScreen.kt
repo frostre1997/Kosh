@@ -27,9 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.rk.components.compose.preferences.base.PreferenceGroup
-import com.rk.libcommons.child
-import com.rk.resources.strings
+import com.kosh.shell.components.compose.preferences.base.PreferenceGroup
+import com.kosh.shell.libcommons.child
+import com.kosh.shell.resources.strings
 import com.kosh.shell.ui.activities.terminal.MainActivity
 import com.kosh.shell.ui.activities.terminal.MainViewModel
 import com.kosh.shell.ui.components.SetStatusBarTextColor

@@ -1,4 +1,4 @@
-package com.rk.components.compose.preferences.base
+package com.kosh.shell.components.compose.preferences.base
 
 /*
  * Copyright 2021, Lawnchair.

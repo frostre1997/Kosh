@@ -16,7 +16,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.rk.resources.strings
+import com.kosh.shell.resources.strings
 import com.kosh.shell.service.SessionService
 import com.kosh.shell.ui.routes.MainActivityRoutes
 

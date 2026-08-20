@@ -1,4 +1,4 @@
-package com.rk.components.compose.appbars
+package com.kosh.shell.components.compose.appbars
 
 /*
  * Copyright 2021, Lawnchair.
@@ -28,7 +28,7 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
-import com.rk.components.compose.icons.ClickableIcon
+import com.kosh.shell.components.compose.icons.ClickableIcon
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

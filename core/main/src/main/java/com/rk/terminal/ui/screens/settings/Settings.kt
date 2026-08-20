@@ -19,11 +19,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.navigation.NavController
-import com.rk.components.compose.preferences.base.PreferenceGroup
-import com.rk.components.compose.preferences.base.PreferenceLayout
-import com.rk.components.compose.preferences.base.PreferenceTemplate
-import com.rk.resources.strings
-import com.rk.settings.Settings
+import com.kosh.shell.components.compose.preferences.base.PreferenceGroup
+import com.kosh.shell.components.compose.preferences.base.PreferenceLayout
+import com.kosh.shell.components.compose.preferences.base.PreferenceTemplate
+import com.kosh.shell.resources.strings
+import com.kosh.shell.settings.Settings
 import com.kosh.shell.ui.activities.terminal.MainActivity
 import com.kosh.shell.ui.components.SettingsToggle
 import com.kosh.shell.ui.routes.MainActivityRoutes

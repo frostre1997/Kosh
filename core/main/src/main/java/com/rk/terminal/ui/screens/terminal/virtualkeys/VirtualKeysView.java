@@ -439,7 +439,7 @@ public final class VirtualKeysView extends GridLayout {
         return;
     }
 
-    if (com.rk.settings.Settings.INSTANCE.getVibrate()) {
+    if (com.kosh.shell.settings.Settings.INSTANCE.getVibrate()) {
       if (Settings.System.getInt(
               getContext().getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 0)
               != 0) {

@@ -14,7 +14,7 @@
         </activity>
 
         <provider
-            android:name="com.rk.AlpineDocumentProvider"
+            android:name="com.kosh.shell.AlpineDocumentProvider"
             android:authorities="${applicationId}.documents"
             android:exported="true"
             android:grantUriPermissions="true"

@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.color.DynamicColors
-import com.rk.libcommons.isDarkMode
-import com.rk.settings.Settings
+import com.kosh.shell.libcommons.isDarkMode
+import com.kosh.shell.settings.Settings
 import com.kosh.shell.R
 
 /**

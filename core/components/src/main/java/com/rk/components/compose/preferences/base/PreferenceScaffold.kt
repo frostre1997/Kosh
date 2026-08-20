@@ -1,4 +1,4 @@
-package com.rk.components.compose.preferences.base
+package com.kosh.shell.components.compose.preferences.base
 
 /*
  * Copyright 2021, Lawnchair.
@@ -24,7 +24,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.rk.components.compose.appbars.TopBar
+import com.kosh.shell.components.compose.appbars.TopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

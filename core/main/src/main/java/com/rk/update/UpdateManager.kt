@@ -1,9 +1,9 @@
-package com.rk.update
+package com.kosh.shell.update
 
 import android.content.Context
-import com.rk.libcommons.child
-import com.rk.libcommons.createFileIfNot
-import com.rk.libcommons.localBinDir
+import com.kosh.shell.libcommons.child
+import com.kosh.shell.libcommons.createFileIfNot
+import com.kosh.shell.libcommons.localBinDir
 import java.io.File
 
 class UpdateManager(private val context: Context) {

@@ -1,4 +1,4 @@
-package com.rk.components.compose.preferences.base
+package com.kosh.shell.components.compose.preferences.base
 
 /*
  * Copyright 2021, Lawnchair.
@@ -35,7 +35,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.rk.components.compose.utils.addIf
+import com.kosh.shell.components.compose.utils.addIf
 
 /** A template used to create most preference-related components in the Preference UI. */
 @Suppress("ktlint:compose:modifier-not-used-at-root")

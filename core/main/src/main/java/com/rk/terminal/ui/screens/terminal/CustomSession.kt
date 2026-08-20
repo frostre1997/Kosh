@@ -1,7 +1,7 @@
 package com.kosh.shell.ui.screens.terminal
 
-import com.rk.settings.Preference
-import com.rk.settings.Settings
+import com.kosh.shell.settings.Preference
+import com.kosh.shell.settings.Settings
 import com.kosh.shell.ui.screens.settings.WorkingMode
 import org.json.JSONArray
 import org.json.JSONObject

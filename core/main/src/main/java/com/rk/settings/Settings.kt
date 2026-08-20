@@ -1,11 +1,11 @@
-package com.rk.settings
+package com.kosh.shell.settings
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
-import com.rk.libcommons.application
+import com.kosh.shell.libcommons.application
 import com.kosh.shell.ui.screens.settings.WorkingMode
 import com.kosh.shell.ui.screens.settings.InputMode
 

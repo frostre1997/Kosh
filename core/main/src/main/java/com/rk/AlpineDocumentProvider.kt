@@ -1,4 +1,4 @@
-package com.rk
+package com.kosh.shell
 
 import android.content.ComponentName
 import android.content.Context
@@ -13,7 +13,7 @@ import android.provider.DocumentsContract
 import android.provider.DocumentsProvider
 import android.util.Log
 import android.webkit.MimeTypeMap
-import com.rk.libcommons.alpineHomeDir
+import com.kosh.shell.libcommons.alpineHomeDir
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException

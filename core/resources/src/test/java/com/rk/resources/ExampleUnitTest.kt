@@ -1,4 +1,4 @@
-package com.rk.resources
+package com.kosh.shell.resources
 
 import org.junit.Test
 

@@ -1,3 +1,3 @@
-package com.rk.libcommons
+package com.kosh.shell.libcommons
 
 var isAppInBackground = false

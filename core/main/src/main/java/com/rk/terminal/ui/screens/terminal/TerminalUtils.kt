@@ -4,8 +4,8 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.compose.runtime.mutableStateOf
-import com.rk.libcommons.child
-import com.rk.settings.Settings
+import com.kosh.shell.libcommons.child
+import com.kosh.shell.settings.Settings
 
 object TerminalUtils {
     var darkText = mutableStateOf(Settings.blackTextColor)

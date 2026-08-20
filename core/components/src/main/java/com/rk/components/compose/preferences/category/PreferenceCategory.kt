@@ -1,4 +1,4 @@
-package com.rk.components.compose.preferences.category
+package com.kosh.shell.components.compose.preferences.category
 
 /*
  * Copyright 2021, Lawnchair.
@@ -33,7 +33,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.rk.components.compose.preferences.base.PreferenceTemplate
+import com.kosh.shell.components.compose.preferences.base.PreferenceTemplate
 
 @Composable
 fun PreferenceCategory(

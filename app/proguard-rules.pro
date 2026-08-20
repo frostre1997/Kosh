@@ -130,7 +130,7 @@
 -keep class com.google.gson.** { *; }
 -dontwarn com.google.gson.**
 -keep class org.joni.ast.QuantifierNode { *; }
--keep class com.rk.plugin.server.Manifest.** { *; }
+-keep class com.kosh.shell.plugin.server.Manifest.** { *; }
 # For using GSON @Expose annotation
 -keepattributes *Annotation*
 # Gson specific classes
@@ -161,26 +161,26 @@
 -keepclassmembers,allowobfuscation class * {
   @com.google.gson.annotations.SerializedName <fields>;
 }
--keep class com.rk.plugin.server.Manifest { *; }
+-keep class com.kosh.shell.plugin.server.Manifest { *; }
 # Retain generic signatures of TypeToken and its subclasses with R8 version 3.0 and higher.
 -keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
 -keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
 # Keep the no-args constructor of the deserialized class
--keepclassmembers class com.rk.plugin.server.Manifest {
+-keepclassmembers class com.kosh.shell.plugin.server.Manifest {
   <init>();
 }
--keep,allowobfuscation,allowoptimization class com.rk.plugin.server.Manifest {
+-keep,allowobfuscation,allowoptimization class com.kosh.shell.plugin.server.Manifest {
   @com.google.gson.annotations.SerializedName <fields>;
 }
--keep class com.rk.plugin.server.Manifest {
+-keep class com.kosh.shell.plugin.server.Manifest {
    <fields>;
 }
--keepclassmembers class com.rk.plugin.server.Manifest {
+-keepclassmembers class com.kosh.shell.plugin.server.Manifest {
  !transient <fields>;
 }
 # Keep classes and members for all models used with Gson
-#-keep class com.rk.xededitor.** { *; }
-#-keep class com.rk.plugin.** { *; }
+#-keep class com.kosh.shell.xededitor.** { *; }
+#-keep class com.kosh.shell.plugin.** { *; }
 # Keep all classes that might be used by Gson
 -keepclassmembers class * {
     @com.google.gson.annotations.SerializedName <fields>;
@@ -204,22 +204,22 @@
 -keep class * extends com.google.gson.TypeAdapter { *; }
 
 
--keepclasseswithmembernames class com.rk.plugin.server.api.API {*;}
--keepclasseswithmembernames class com.rk.plugin.server.api.PluginLifeCycle  {*;}
--keepclasseswithmembernames class com.rk.plugin.server.** {*;}
+-keepclasseswithmembernames class com.kosh.shell.plugin.server.api.API {*;}
+-keepclasseswithmembernames class com.kosh.shell.plugin.server.api.PluginLifeCycle  {*;}
+-keepclasseswithmembernames class com.kosh.shell.plugin.server.** {*;}
 -keep class com.kosh.shell.MainActivity.MainActivity {*;}
 -keepclasseswithmembernames class com.kosh.shell.App {*;}
 -keepclasseswithmembernames class com.kosh.shell.BaseActivity {*;}
 
--keepclassmembernames class com.rk.plugin.server.api.API {*;}
--keepclassmembernames class com.rk.plugin.server.api.PluginLifeCycle {*;}
--keepclassmembernames class com.rk.plugin.server.** {*;}
+-keepclassmembernames class com.kosh.shell.plugin.server.api.API {*;}
+-keepclassmembernames class com.kosh.shell.plugin.server.api.PluginLifeCycle {*;}
+-keepclassmembernames class com.kosh.shell.plugin.server.** {*;}
 -keepclassmembernames class com.kosh.shell.App {*;}
 -keepclassmembernames class com.kosh.shell.BaseActivity {*;}
 
--keepnames class com.rk.plugin.server.api.API {*;}
--keepnames class com.rk.plugin.server.api.PluginLifeCycle {*;}
--keepnames class com.rk.plugin.server.** {*;}
+-keepnames class com.kosh.shell.plugin.server.api.API {*;}
+-keepnames class com.kosh.shell.plugin.server.api.PluginLifeCycle {*;}
+-keepnames class com.kosh.shell.plugin.server.** {*;}
 -keepnames class com.kosh.shell.App {*;}
 -keepnames class com.kosh.shell.BaseActivity {*;}
 

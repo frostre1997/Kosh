@@ -14,10 +14,10 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.widget.doOnTextChanged
-import com.rk.libcommons.child
-import com.rk.libcommons.dpToPx
-import com.rk.libcommons.localDir
-import com.rk.settings.Settings
+import com.kosh.shell.libcommons.child
+import com.kosh.shell.libcommons.dpToPx
+import com.kosh.shell.libcommons.localDir
+import com.kosh.shell.settings.Settings
 import com.kosh.shell.service.SessionService
 import com.kosh.shell.ui.activities.terminal.MainActivity
 import com.kosh.shell.ui.screens.terminal.virtualkeys.*

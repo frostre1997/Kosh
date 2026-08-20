@@ -10,8 +10,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.rk.libcommons.*
-import com.rk.resources.strings
+import com.kosh.shell.libcommons.*
+import com.kosh.shell.resources.strings
 import com.kosh.shell.ui.activities.terminal.MainActivity
 import com.kosh.shell.ui.screens.terminal.ExecMode
 import com.kosh.shell.ui.screens.terminal.Rootfs

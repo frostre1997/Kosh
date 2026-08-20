@@ -14,8 +14,8 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.core.app.NotificationCompat
-import com.rk.resources.drawables
-import com.rk.resources.strings
+import com.kosh.shell.resources.drawables
+import com.kosh.shell.resources.strings
 import com.kosh.shell.ui.activities.terminal.MainActivity
 import com.kosh.shell.ui.screens.terminal.CustomSessions
 import com.kosh.shell.ui.screens.terminal.MkSession
