@@ -1,12 +1,11 @@
 #!/system/bin/sh
 
 # ─── Detect writable app directory ────────────────────────────────
-# The script is at /data/user/0/<package>/local/bin/init-host
 SCRIPT_PATH="$(realpath "$0" 2>/dev/null || echo "$0")"
-APP_DATA_DIR="$(echo "$SCRIPT_PATH" | sed -E 's|(/data/user/0/[^/]+)/local/bin/init-host$|\1|')"
+APP_DATA_DIR="$(echo "$SCRIPT_PATH" | sed -E 's|(/data/user/[0-9]+/[^/]+)/local/bin/init-host$|\1|')"
 
 if [ -z "$APP_DATA_DIR" ] || [ ! -d "$APP_DATA_DIR" ]; then
-    # Fallback: use HOME if set, otherwise use default
+    # Fallback: use HOME if set, otherwise default debug path
     if [ -n "$HOME" ] && [ -d "$HOME" ]; then
         APP_DATA_DIR="$HOME"
     else
@@ -17,12 +16,11 @@ fi
 export HOME="$APP_DATA_DIR/files"
 mkdir -p "$HOME/bin"
 export PATH="$HOME/bin:$PATH"
-cd "$HOME" || exit
 
-# ─── Version file ──────────────────────────────────────────────────
+# ─── Write version file ────────────────────────────────────────────
 echo "150.1.01.0" > "$HOME/.kosh_version"
 
-# ─── `k` command (official flags) ─────────────────────────────────
+# ─── Define `k` command ───────────────────────────────────────────
 cat > "$HOME/bin/k" << 'SCRIPT'
 #!/system/bin/sh
 VERSION=$(cat "$HOME/.kosh_version" 2>/dev/null || echo "150.1.01.0")
@@ -33,7 +31,7 @@ Official flags:
   --h             Show this help
   --st            Show storage info
   --uptm          Show system uptime
-  --dinf          Show device info (model, Android version, kernel)
+  --dinf          Show device info
   --ip            Show IP address(es)
   --dns           Show DNS servers
   --update        Check for app updates
@@ -189,7 +187,7 @@ esac
 SCRIPT
 chmod +x "$HOME/bin/wakelock"
 
-# ─── Aliases ──────────────────────────────────────────────────────
+# ─── Aliases and PS1 ──────────────────────────────────────────────
 echo "alias sp='suspend'" >> "$HOME/.profile"
 echo "alias rs='resume'" >> "$HOME/.profile"
 echo "alias help='k --h'" >> "$HOME/.profile"
@@ -199,10 +197,8 @@ echo "alias device='k --dinf'" >> "$HOME/.profile"
 echo "alias ip='k --ip'" >> "$HOME/.profile"
 echo "alias dns='k --dns'" >> "$HOME/.profile"
 echo "export PATH=\$HOME/bin:\$PATH" >> "$HOME/.profile"
-
-# ─── Set PS1 to show the path ─────────────────────────────────────
 echo "export PS1='localhost@hostname:\\w# '" >> "$HOME/.profile"
 
-# ─── Ensure we start in /storage/emulated/0 ──────────────────────
-cd /storage/emulated/0 || cd /sdcard || exit
+# ─── Start the shell in the external storage ──────────────────────
+cd /storage/emulated/0 2>/dev/null || cd /sdcard 2>/dev/null || exit 1
 exec /system/bin/sh -l
